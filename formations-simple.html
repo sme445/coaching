@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Football Formations Guide — Ross County U16 Girls</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#e8c84a; --gold-dim:#b89c2e; --red:#e85a4a; --blue:#4a9ee8;
+    --green:#5ec47e; --orange:#e8944a; --purple:#a97de8;
+    --white:#f5f2eb; --ink:#1a1a1a;
+    --bg:#0f1f16; --card:rgba(245,242,235,0.06); --card-border:rgba(245,242,235,0.12);
+    --role-color:var(--gold);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+
+  /* ══ HUB ══ */
+  #hub{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1.5rem 3rem;}
+  .hub-badge{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.28em;color:var(--gold);border:1px solid rgba(232,200,74,0.35);padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:1rem;}
+  .hub-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,10vw,6rem);letter-spacing:0.04em;line-height:0.88;text-align:center;color:var(--white);margin-bottom:0.5rem;}
+  .hub-title span{color:var(--gold);}
+  .hub-sub{font-size:0.95rem;color:rgba(245,242,235,0.45);letter-spacing:0.05em;margin-bottom:2rem;text-align:center;}
+
+  /* Formation selector grid */
+  .formation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.7rem;width:100%;max-width:920px;margin-bottom:2rem;}
+  @media(min-width:500px){.formation-grid{grid-template-columns:repeat(4,1fr);}}
+  .f-btn{
+    background:var(--card);border:1px solid var(--card-border);border-radius:6px;
+    padding:0.9rem 0.5rem;cursor:pointer;transition:all 0.2s;text-align:center;
+  }
+  .f-btn:hover{border-color:rgba(232,200,74,0.4);background:rgba(232,200,74,0.06);}
+  .f-btn.active{background:rgba(232,200,74,0.12);border-color:var(--gold);}
+  .f-btn-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.06em;color:var(--gold);line-height:1;}
+  .f-btn-sub{font-size:0.78rem;color:rgba(245,242,235,0.4);margin-top:0.2rem;line-height:1.3;}
+
+  /* Formation detail card */
+  .f-detail{width:100%;max-width:920px;background:var(--card);border:1px solid var(--card-border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;}
+  .f-detail-inner{display:grid;grid-template-columns:1fr;gap:0;}
+  @media(min-width:600px){.f-detail-inner{grid-template-columns:300px 1fr;}}
+
+  /* Mini pitch in hub */
+  .hub-pitch-wrap{padding:1.2rem;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--card-border);}
+  @media(min-width:600px){.hub-pitch-wrap{border-bottom:none;border-right:1px solid var(--card-border);}}
+  .hub-pitch-wrap svg{filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5));}
+
+  .f-info{padding:1.2rem 1.4rem;}
+  .f-info-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.04em;color:var(--gold);line-height:1;margin-bottom:0.2rem;}
+  .f-info-sub{font-size:0.85rem;color:rgba(245,242,235,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.7rem;}
+  .tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.8rem;}
+  .tag{font-size:0.76rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:3px;}
+  .tag-off{background:rgba(232,90,43,0.15);color:#e8844a;border:1px solid rgba(232,90,43,0.25);}
+  .tag-def{background:rgba(74,158,232,0.12);color:#4a9ee8;border:1px solid rgba(74,158,232,0.2);}
+  .tag-bal{background:rgba(94,196,126,0.1);color:#5ec47e;border:1px solid rgba(94,196,126,0.2);}
+  .tag-press{background:rgba(169,125,232,0.1);color:#a97de8;border:1px solid rgba(169,125,232,0.2);}
+  .f-desc{font-size:0.92rem;line-height:1.65;color:rgba(245,242,235,0.68);margin-bottom:0.9rem;}
+  .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.9rem;}
+  .pros-cons h4{font-family:'Bebas Neue',sans-serif;font-size:0.72rem;letter-spacing:0.15em;margin-bottom:0.4rem;}
+  .pros-cons h4.pro{color:var(--green);}
+  .pros-cons h4.con{color:var(--red);}
+  .pro-list li::before{content:'+ ';color:var(--green);font-weight:700;}
+  .con-list li::before{content:'− ';color:var(--red);font-weight:700;}
+  .pro-list li,.con-list li{font-size:0.86rem;color:rgba(245,242,235,0.65);line-height:1.5;margin-bottom:0.2rem;list-style:none;}
+  .f-cta{font-size:0.9rem;color:rgba(245,242,235,0.38);text-align:center;letter-spacing:0.04em;}
+
+
+  /* ══ HUB ROLE TOOLTIP ══ */
+  #hub-tooltip {
+    position:fixed; z-index:999; pointer-events:none;
+    opacity:0; transform:translateY(8px);
+    transition:opacity 0.18s, transform 0.18s;
+    width:260px;
+  }
+  #hub-tooltip.visible { opacity:1; transform:translateY(0); }
+  .ht-inner {
+    background:#0d1a10; border:1px solid rgba(232,200,74,0.3);
+    border-radius:10px; padding:1rem 1.1rem;
+    box-shadow:0 8px 32px rgba(0,0,0,0.7);
+  }
+  .ht-label {
+    font-family:'Bebas Neue',sans-serif; font-size:1.4rem;
+    letter-spacing:0.08em; color:var(--gold); line-height:1;
+    margin-bottom:0.1rem;
+  }
+  .ht-full {
+    font-size:0.7rem; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.1em; color:rgba(245,242,235,0.4); margin-bottom:0.6rem;
+  }
+  .ht-desc {
+    font-size:0.82rem; line-height:1.55; color:rgba(245,242,235,0.75);
+    margin-bottom:0.7rem;
+  }
+  .ht-mantras { display:flex; flex-direction:column; gap:0.3rem; margin-bottom:0.7rem; }
+  .ht-mantra {
+    font-size:0.76rem; font-weight:500;
+    padding:0.22rem 0.65rem; border-radius:20px;
+    background:rgba(232,200,74,0.1); border:1px solid rgba(232,200,74,0.22);
+    color:var(--gold); letter-spacing:0.02em;
+  }
+  .ht-hint {
+    font-size:0.68rem; color:rgba(245,242,235,0.3);
+    text-align:right; letter-spacing:0.04em;
+  }
+
+  /* ══ FORMATION VIEW ══ */
+  #fview{display:none;min-height:100vh;flex-direction:column;}
+  #fview.active{display:flex;flex-direction:column;}
+  .fv-back{padding:1rem 1.5rem;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid var(--card-border);background:rgba(0,0,0,0.2);cursor:pointer;transition:background 0.15s;}
+  .fv-back:hover{background:rgba(0,0,0,0.35);}
+  .fv-back-arrow{font-size:1rem;color:var(--gold);}
+  .fv-back-label{font-size:0.8rem;letter-spacing:0.08em;color:rgba(245,242,235,0.5);}
+  .fv-back-name{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.12em;color:var(--gold);}
+
+  .fv-header{padding:2rem 1.5rem 1.5rem;text-align:center;border-bottom:1px solid var(--card-border);background:linear-gradient(180deg,rgba(232,200,74,0.06) 0%,transparent 100%);}
+  .fv-badge{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.28em;color:var(--gold);border:1px solid rgba(232,200,74,0.35);padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+  .fv-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,8vw,5rem);letter-spacing:0.04em;line-height:0.9;color:var(--white);margin-bottom:0.4rem;}
+  .fv-title span{color:var(--gold);}
+  .fv-sub{font-size:0.85rem;color:rgba(245,242,235,0.45);letter-spacing:0.04em;}
+
+  .fv-pitch-wrap{display:flex;justify-content:center;padding:1.2rem 1rem 0.5rem;flex:1;}
+  .fv-pitch-wrap svg{filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;}
+  .player-dot{cursor:pointer;transition:r 0.15s;}
+  .player-dot:hover{r:11;}
+
+  .fv-hint{text-align:center;font-size:0.85rem;color:rgba(245,242,235,0.3);letter-spacing:0.06em;padding:0.4rem 1rem 1rem;}
+
+  /* ══ ROLE VIEW ══ */
+  #rview{display:none;min-height:100vh;flex-direction:column;}
+  #rview.active{display:flex;flex-direction:column;}
+  .rv-back{padding:1rem 1.5rem;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid var(--card-border);background:rgba(0,0,0,0.2);cursor:pointer;transition:background 0.15s;}
+  .rv-back:hover{background:rgba(0,0,0,0.35);}
+  .rv-back-arrow{font-size:1rem;color:var(--gold);}
+  .rv-back-label{font-size:0.8rem;letter-spacing:0.08em;color:rgba(245,242,235,0.5);}
+  .rv-back-name{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.12em;color:var(--gold);}
+
+  .role-header{padding:2.2rem 2rem 1.6rem;text-align:center;border-bottom:1px solid var(--card-border);position:relative;overflow:hidden;}
+  .role-header::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(232,200,74,0.07) 0%,transparent 100%);pointer-events:none;}
+  .role-badge{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.28em;color:var(--role-color);border:1px solid var(--role-color);padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;opacity:0.85;}
+  .role-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,9vw,5.5rem);letter-spacing:0.04em;line-height:0.9;color:var(--white);}
+  .role-title span{color:var(--role-color);}
+  .role-sub{margin-top:0.6rem;font-size:0.95rem;color:rgba(245,242,235,0.45);letter-spacing:0.04em;}
+
+  .tabs-row{display:flex;justify-content:center;padding:1.2rem 1.5rem 0;gap:0.4rem;flex-wrap:wrap;}
+  .tab{font-family:'Bebas Neue',sans-serif;font-size:0.82rem;letter-spacing:0.12em;padding:0.45rem 1.1rem;border:1px solid var(--card-border);border-radius:3px;background:transparent;color:rgba(245,242,235,0.45);cursor:pointer;transition:all 0.2s;}
+  .tab:hover{color:var(--white);border-color:rgba(245,242,235,0.3);}
+  .tab.active{background:var(--role-color);color:var(--ink);border-color:var(--role-color);}
+
+  .section{display:none;padding:1.6rem 1.5rem 3rem;max-width:860px;margin:0 auto;width:100%;}
+  .section.active{display:block;animation:fadeUp 0.3s ease both;}
+  .sec-label{font-family:'Bebas Neue',sans-serif;font-size:0.72rem;letter-spacing:0.28em;color:var(--role-color);margin-bottom:0.4rem;opacity:0.75;}
+  .sec-title{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:0.04em;color:var(--white);margin-bottom:1.3rem;line-height:1;}
+
+  .cards{display:grid;grid-template-columns:1fr;gap:0.9rem;}
+  @media(min-width:580px){.cards{grid-template-columns:1fr 1fr;}}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:6px;padding:1.2rem 1.2rem 1rem;position:relative;overflow:hidden;transition:border-color 0.2s;}
+  .card:hover{border-color:rgba(232,200,74,0.28);}
+  .card-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+  .ca-gold{background:var(--gold);}.ca-blue{background:var(--blue);}.ca-red{background:var(--red);}.ca-green{background:var(--green);}.ca-purple{background:var(--purple);}
+  .card-icon{font-size:1.3rem;margin-bottom:0.45rem;}
+  .card h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:0.07em;color:var(--white);margin-bottom:0.35rem;}
+  .card p,.card ul{font-size:0.93rem;line-height:1.65;color:rgba(245,242,235,0.7);}
+  .card ul{padding-left:1rem;}.card ul li{margin-bottom:0.22rem;}
+
+  .phase{border-left:3px solid var(--card-border);padding-left:1.2rem;margin-bottom:1.6rem;}
+  .phase.in{border-color:var(--blue);}.phase.out{border-color:var(--red);}.phase.trans{border-color:var(--gold);}.phase.warn{border-color:rgba(245,242,235,0.35);}
+  .phase-tag{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.22em;margin-bottom:0.32rem;}
+  .phase.in .phase-tag{color:var(--blue);}.phase.out .phase-tag{color:var(--red);}.phase.trans .phase-tag{color:var(--gold);}.phase.warn .phase-tag{color:rgba(245,242,235,0.45);}
+  .phase h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.04em;color:var(--white);margin-bottom:0.42rem;}
+  .phase ul{font-size:0.93rem;line-height:1.7;color:rgba(245,242,235,0.72);padding-left:1rem;}
+  .phase ul li{margin-bottom:0.2rem;}
+  .cues{display:flex;flex-wrap:wrap;gap:0.42rem;margin-top:0.9rem;}
+  .cue{font-size:0.84rem;font-weight:500;padding:0.26rem 0.68rem;border-radius:20px;background:rgba(232,200,74,0.1);border:1px solid rgba(232,200,74,0.25);color:var(--gold);letter-spacing:0.02em;}
+
+  .qualities{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.7rem;margin-bottom:1.3rem;}
+  .quality{background:var(--card);border:1px solid var(--card-border);border-radius:5px;padding:0.85rem;text-align:center;}
+  .q-score{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;line-height:1;color:var(--role-color);}
+  .q-label{font-size:0.82rem;font-weight:500;color:rgba(245,242,235,0.52);margin-top:0.12rem;letter-spacing:0.03em;}
+
+  .coach-note{background:rgba(232,200,74,0.06);border:1px solid rgba(232,200,74,0.2);border-radius:6px;padding:1rem 1.2rem;margin-top:1.3rem;}
+  .cn-label{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.24em;color:var(--gold);margin-bottom:0.42rem;opacity:0.8;}
+  .coach-note p{font-size:0.92rem;line-height:1.7;color:rgba(245,242,235,0.74);font-style:italic;}
+
+  .memo-wrap{margin-top:1.8rem;background:rgba(232,200,74,0.05);border:1px solid rgba(232,200,74,0.2);border-radius:8px;padding:1.3rem;}
+  .memo-label{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.28em;color:var(--gold);margin-bottom:0.7rem;opacity:0.9;}
+  .memo-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:0.06em;color:var(--white);margin-bottom:0.9rem;}
+  .memo-phases{display:grid;grid-template-columns:1fr;gap:0.65rem;}
+  @media(min-width:480px){.memo-phases{grid-template-columns:1fr 1fr 1fr;}}
+  .memo-phase{border-radius:5px;padding:0.85rem 0.95rem;border:1px solid var(--card-border);}
+  .mp-in{background:rgba(74,158,232,0.08);border-color:rgba(74,158,232,0.2);}
+  .mp-out{background:rgba(232,90,74,0.08);border-color:rgba(232,90,74,0.2);}
+  .mp-trans{background:rgba(232,200,74,0.07);border-color:rgba(232,200,74,0.18);}
+  .mp-tag{font-family:'Bebas Neue',sans-serif;font-size:0.58rem;letter-spacing:0.2em;margin-bottom:0.45rem;}
+  .mp-in .mp-tag{color:var(--blue);}.mp-out .mp-tag{color:var(--red);}.mp-trans .mp-tag{color:var(--gold);}
+  .memo-phase ul{list-style:none;padding:0;}
+  .memo-phase ul li{font-size:0.88rem;font-weight:500;color:var(--white);padding:0.2rem 0;border-bottom:1px solid rgba(255,255,255,0.05);line-height:1.4;}
+  .memo-phase ul li:last-child{border-bottom:none;}
+  .memo-phase ul li::before{content:'→ ';opacity:0.4;font-size:0.68rem;}
+  .memo-howto{font-size:0.82rem;line-height:1.68;color:rgba(245,242,235,0.5);font-style:italic;margin-top:1rem;}
+
+  footer{text-align:center;padding:1.2rem;font-size:0.72rem;color:rgba(245,242,235,0.2);letter-spacing:0.05em;border-top:1px solid var(--card-border);margin-top:auto;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HUB ══════════════ -->
+<div id="hub">
+  <div class="hub-badge">Ross County FC · U16 Girls</div>
+  <div class="hub-title">Football<br><span>Formations</span></div>
+  <div class="hub-sub">Select a formation to explore its roles</div>
+
+  <div class="formation-grid" id="f-grid"></div>
+
+  <div class="f-detail" id="f-detail">
+    <div class="f-detail-inner">
+      <div class="hub-pitch-wrap">
+        <svg id="hub-pitch" viewBox="0 0 200 300" width="240" height="360" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="f-info" id="f-info"></div>
+    </div>
+  </div>
+
+  <p class="f-cta" id="f-cta">↑ Tap any player on the pitch for a quick summary · tap again to open the full role guide</p>
+</div>
+
+<!-- ══════════════ FORMATION VIEW ══════════════ -->
+<div id="fview">
+  <div class="fv-back" onclick="backToHub()">
+    <span class="fv-back-arrow">←</span>
+    <span class="fv-back-label">Back to</span>
+    <span class="fv-back-name">All Formations</span>
+  </div>
+  <div class="fv-header">
+    <div class="fv-badge" id="fv-badge">Formation</div>
+    <div class="fv-title" id="fv-title"><span>Formation</span></div>
+    <div class="fv-sub" id="fv-sub">Subtitle</div>
+  </div>
+  <div class="fv-pitch-wrap">
+    <svg id="fv-pitch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" style="width:min(340px,90vw);height:auto;display:block;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;"></svg>
+  </div>
+  <p class="fv-hint">↑ Tap any player to open their role guide</p>
+  <footer>Ross County FC · U16 Girls · Formations Guide</footer>
+</div>
+
+<!-- ══════════════ ROLE VIEW ══════════════ -->
+<div id="rview">
+  <div class="rv-back" id="rv-back-btn">
+    <span class="rv-back-arrow">←</span>
+    <span class="rv-back-label">Back to</span>
+    <span class="rv-back-name" id="rv-back-name">Formation</span>
+  </div>
+  <div class="role-header">
+    <div class="role-badge" id="rv-badge"></div>
+    <div class="role-title" id="rv-title"></div>
+    <div class="role-sub" id="rv-sub"></div>
+  </div>
+  <div class="tabs-row">
+    <button class="tab active" onclick="showTab('s-overview',this)">Overview</button>
+    <button class="tab" onclick="showTab('s-phases',this)">Phases of Play</button>
+    <button class="tab" onclick="showTab('s-qualities',this)">Key Qualities</button>
+    <button class="tab" onclick="showTab('s-coach',this)">Coaching Cues</button>
+    <button class="tab" onclick="showTab('s-memo',this)">My Memo Card</button>
+  </div>
+  <div id="s-overview" class="section active"></div>
+  <div id="s-phases"   class="section"></div>
+  <div id="s-qualities" class="section"></div>
+  <div id="s-coach"    class="section"></div>
+  <div id="s-memo"     class="section"></div>
+  <footer>Ross County FC · U16 Girls · Formations Guide</footer>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   FORMATION DATA
+════════════════════════════════════════════ */
+const formations = [
+  {
+    id:'4-4-2', name:'4–4–2', subtitle:'The Classic — Great Starting Point',
+    tags:['balanced','defensive'],
+    desc:'The most player-friendly formation at youth level. Two clear banks of four give every player a simple reference point — stay in your line, stay in your shape. Two strikers work together and support each other, which is brilliant for building confidence at U16. Roles are easy to explain, easy to rehearse, and easy to reset when things go wrong.',
+    pros:['Simple shape — easy for players to hold','Two strikers support each other well','Good width across the pitch','Defensively clear — everyone knows their zone'],
+    cons:['Central midfield can be outnumbered vs a midfield three','Strikers can end up isolated if midfield doesn\'t push on','Wide mids must work hard in both directions','Can become too passive if the team just sits in shape'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
+      {label:'RM',  x:168, y:150, role:'rm'},{label:'CM', x:125, y:150, role:'rcm'},{label:'CM', x:75, y:150, role:'lcm'},{label:'LM', x:32, y:150, role:'lm'},
+      {label:'ST',  x:125, y:75,  role:'rs'},{label:'ST', x:75,  y:75,  role:'ls'}
+    ]
+  },
+  {
+    id:'4-3-3', name:'4–3–3', subtitle:'High Energy, High Press',
+    tags:['offensive','pressing'],
+    desc:'A very popular system in girls\' development football because it rewards energy, teamwork and pressing. Three forwards chase and press high, while three midfielders work hard to win second balls and transition quickly. At this age, the key is keeping the press organised so it doesn\'t leave big gaps in behind.',
+    pros:['High press can disrupt opposition build-up','Wingers give great width and 1v1 opportunities','Suits energetic, mobile players','Teaches pressing triggers and team shape together'],
+    cons:['If press breaks down, gaps open for a quick ball over the top','Wide forwards must track back — requires commitment','Midfield three can get stretched if all attack-minded','Physically demanding for a full 60-70 minutes at U16'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
+      {label:'CM',  x:140, y:155, role:'rcm'},{label:'CDM', x:100, y:170, role:'cdm'},{label:'CM', x:60, y:155, role:'lcm'},
+      {label:'RW',  x:165, y:80,  role:'rw'},{label:'ST', x:100, y:60, role:'st'},{label:'LW', x:35, y:80, role:'lw'}
+    ]
+  },
+  {
+    id:'4-2-3-1', name:'4–2–3–1', subtitle:'Structured & Creative',
+    tags:['balanced','defensive'],
+    desc:'A really useful shape for U16 girls\' football because it gives creative players freedom in the attacking three while keeping two defensive midfielders to protect the back four. The double pivot is great for introducing positional discipline. The No.10 role behind the striker is brilliant for your most creative player.',
+    pros:['Two DMs protect and cover well','Your best creative player thrives as the No.10','Attacking three have freedom to combine','Disciplined shape — good for defensive structure'],
+    cons:['Lone striker can feel isolated if the AM line doesn\'t support','Wide AMs must track back or full-backs are exposed','Double pivot takes time for players to understand','Can feel narrow if full-backs don\'t push on'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
+      {label:'DM',  x:125, y:178, role:'rdm'},{label:'DM', x:75, y:178, role:'ldm'},
+      {label:'RAM', x:158, y:115, role:'ram'},{label:'CAM', x:100, y:105, role:'cam'},{label:'LAM', x:42, y:115, role:'lam'},
+      {label:'ST',  x:100, y:58,  role:'st'}
+    ]
+  },
+  {
+    id:'3-5-2', name:'3–5–2', subtitle:'Midfield Dominance',
+    tags:['offensive','balanced'],
+    desc:'This shape floods the midfield, where most games are won and lost at this age. Three defenders hold the back line while two wing-backs provide all the width, and three central midfielders dominate the middle. Two strikers work as a pair. The challenge is that wing-backs must be physically capable of covering the full flank.',
+    pros:['Five in midfield can dominate most U16 opposition','Two strikers work well as a partnership','Three CBs give defensive security','Wing-backs develop all-round fitness and awareness'],
+    cons:['Wing-backs need excellent stamina — not for all players','Wide areas exposed when wing-backs push forward','Requires three confident CBs who communicate well','More complex to organise than a flat back four'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'CB',  x:148, y:218, role:'rcb'},{label:'CB', x:100, y:218, role:'ccb'},{label:'CB', x:52, y:218, role:'lcb'},
+      {label:'RWB', x:178, y:155, role:'rwb'},{label:'CM', x:138, y:155, role:'rcm'},{label:'CM', x:100, y:162, role:'cm'},{label:'CM', x:62, y:155, role:'lcm'},{label:'LWB', x:22, y:155, role:'lwb'},
+      {label:'ST',  x:125, y:78,  role:'rs'},{label:'ST', x:75, y:78, role:'ls'}
+    ]
+  },
+  {
+    id:'3-4-3', name:'3–4–3', subtitle:'Attacking & Demanding',
+    tags:['offensive','pressing'],
+    desc:'An ambitious formation that demands a lot from every player. Three defenders, four midfielders with wing-backs, and three forwards creates lots of attacking options but also big spaces to defend. Better suited to experienced players with strong positional understanding. Wing-backs cover huge distances — fitness is critical.',
+    pros:['Lots of attacking options — width and central threat','Can overwhelm disorganised opposition','Exciting to play — good for player engagement','Wing-backs and wingers stretch the pitch in both phases'],
+    cons:['Defensively risky if players lose shape','Wing-backs cover enormous distances — fitness critical','Needs clear pressing triggers or becomes chaotic','Complex to coach — takes time to embed at U16'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'CB',  x:148, y:218, role:'rcb'},{label:'CB', x:100, y:218, role:'ccb'},{label:'CB', x:52, y:218, role:'lcb'},
+      {label:'RWB', x:178, y:162, role:'rwb'},{label:'CM', x:130, y:162, role:'rcm'},{label:'CM', x:70, y:162, role:'lcm'},{label:'LWB', x:22, y:162, role:'lwb'},
+      {label:'RW',  x:152, y:82,  role:'rw'},{label:'ST', x:100, y:65, role:'st'},{label:'LW', x:48, y:82, role:'lw'}
+    ]
+  },
+  {
+    id:'4-5-1', name:'4–5–1', subtitle:'Compact & Disciplined',
+    tags:['defensive','balanced'],
+    desc:'A very organised, hard-to-beat shape. Five midfielders sit in a flat line and deny space through the middle. Works well when you need the team to stay disciplined and work as a unit, but the lone striker can feel isolated. Best used tactically rather than as a default — not ideal for player development long term.',
+    pros:['Very compact and hard to break down','Five midfielders block central channels well','Wide midfielders can counter quickly when ball is won','Simple defensive shape — clear roles for all'],
+    cons:['Striker is isolated — needs to work hard alone','Very little goal threat unless midfielders support','Wide mids have a huge amount of ground to cover','Can be demoralising for young players in a long game'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
+      {label:'RM',  x:172, y:160, role:'rm'},{label:'CM', x:138, y:155, role:'rcm'},{label:'CM', x:100, y:165, role:'cm'},{label:'CM', x:62, y:155, role:'lcm'},{label:'LM', x:28, y:160, role:'lm'},
+      {label:'ST',  x:100, y:72,  role:'st'}
+    ]
+  },
+  {
+    id:'4-1-4-1', name:'4–1–4–1', subtitle:'Best for Youth Development',
+    tags:['balanced','pressing','defensive'],
+    desc:'Arguably the best formation for developing players at U16 level. The holding midfielder gives the defence clear protection, while the four midfielders ahead press and support attacks. Clear enough for less experienced players to understand quickly, with enough flexibility for experienced players to show initiative. Widely used in academy football.',
+    pros:['Very clear roles — great for mixed-age squads','CDM protects back four and covers for attacking full-backs','Four midfielders can press as a coordinated unit','Excellent for teaching pressing triggers and transitions'],
+    cons:['Striker still relatively isolated — needs midfield support','Wide midfielders must track back defensively','The CDM role needs the right player','Can look like a 4-5-1 if the midfield four don\'t push on'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
+      {label:'CDM', x:100, y:185, role:'cdm'},
+      {label:'RM',  x:168, y:138, role:'rm'},{label:'CM', x:130, y:130, role:'rcm'},{label:'CM', x:70, y:130, role:'lcm'},{label:'LM', x:32, y:138, role:'lm'},
+      {label:'ST',  x:100, y:68,  role:'st'}
+    ]
+  },
+  {
+    id:'5-3-2', name:'5–3–2', subtitle:'Defensive Solidity',
+    tags:['defensive','balanced'],
+    desc:'A very defensive shape that prioritises not conceding. Five defenders make the team very hard to break down, while three midfielders work to win the ball and transition to the two strikers. At U16 girls\' level, this should only be used in specific situations — as a default it risks limiting development and dampening confidence.',
+    pros:['Five defenders extremely hard to break down','Two strikers give an outlet for direct balls','Three midfielders work hard in a compact area','Wing-backs tuck in to make a solid defensive block'],
+    cons:['Very limited attacking play — players may find it frustrating','Midfield of three easily outnumbered','Doesn\'t develop players on the ball','Not recommended as a regular formation at development age'],
+    positions:[
+      {label:'GK',  x:100, y:270, role:'gk'},
+      {label:'RWB', x:175, y:210, role:'rwb'},{label:'CB', x:145, y:218, role:'rcb'},{label:'CB', x:100, y:222, role:'ccb'},{label:'CB', x:55, y:218, role:'lcb'},{label:'LWB', x:25, y:210, role:'lwb'},
+      {label:'CM',  x:140, y:160, role:'rcm'},{label:'CM', x:100, y:170, role:'cm'},{label:'CM', x:60, y:160, role:'lcm'},
+      {label:'ST',  x:130, y:80,  role:'rs'},{label:'ST', x:70, y:80, role:'ls'}
+    ]
+  }
+];
+
+/* ════════════════════════════════════════════
+   POSITION ROLE DATA
+════════════════════════════════════════════ */
+const positionRoles = {
+  gk: {
+    full:'Goalkeeper', sub:'Last line of defence — first launch of attack',
+    overview:{
+      note:'"You can see the whole pitch — your teammates can\'t see behind them. That\'s why you talk. Tell them where the danger is, who\'s coming, when to press. Talk from the first minute to the last."',
+      cards:[
+        {a:'ca-gold',i:'🧤',h:'Stop the Ball',p:'Your main job is simple — stop the ball going in the net. Good positioning, quick reactions and bravery when it matters most.'},
+        {a:'ca-blue',i:'📢',h:'Be the Voice',p:'You\'re the only one facing the whole pitch. Your teammates can\'t see behind them — so you have to tell them what\'s happening. Never go quiet.'},
+        {a:'ca-red',i:'🦶',h:'Come and Get It',p:'Don\'t just stand on your line. When the ball is played in behind your defenders, come out and claim it before the attacker gets there.'},
+        {a:'ca-green',i:'🎯',h:'Start the Attack',p:'Every save or catch is a chance to start something. Look up quickly and pick your pass — don\'t just boot it away without thinking.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Distribution',items:['Decide fast — short to a defender, or long to release?','Use your feet — short passing out starts attacks','Pick out a striker when opponents press high','Communicate which option you\'re taking BEFORE you have the ball','Vary distribution — predictable GKs are easy to press']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Saving & Commanding',items:['Set position — slightly off the line, weight forward','Claim everything you can — cross or shot, dominate your box','For 1v1s — stay big, stay on your feet as long as possible','Parry away from danger — not into the centre','Organise the defensive shape constantly — call names, call positions']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Fast Reactions',items:['After a save — look up immediately, can you launch a counter?','After a goal kick — decide on length based on shape and press','When team loses the ball high — be on your line, ready for a shot']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Being rooted to the line — must constantly adjust','Going quiet — the team can\'t see behind them','Poor footwork — feet are as important as hands at this level','Being too slow to claim crosses — uncertainty causes collisions']},
+    ],
+    qualities:['Shot Stopping','Command of Box','Distribution (feet)','Communication','Decision Speed','Sweeping'],
+    cues:{in:['Vary it','Use your feet','Communicate first'],out:['Set position','Claim it!','Call names'],warn:['Be active','Never go quiet']},
+    note:'Communication is the most impactful thing to work on — get her talking constantly. Distribution with feet is the second priority.',
+    memo:{in:['Decide before the ball arrives','Short to CB or long to striker','Vary it — don\'t be predictable'],out:['Set position — weight forward','Claim crosses loudly','Organise by name'],trans:['After save — look up immediately','When we lose it high — get on line']}
+  },
+  rb: {
+    full:'Right Back', sub:'Wide defender — defend deep, attack with purpose',
+    overview:{
+      note:'"Defend first, attack second. If their winger gets past you, your centre-backs suddenly have a problem they weren\'t expecting. Keep her in front of you — always."',
+      cards:[
+        {a:'ca-gold',i:'🛡️',h:'Stop the Winger',p:'Your main job is stopping their left winger. Stay close, track her runs, and don\'t let her get past you on the outside.'},
+        {a:'ca-blue',i:'🚀',h:'Join the Attack',p:'When your team has the ball, run forward down the right side. Get past the right midfielder and put a cross in from near the line.'},
+        {a:'ca-red',i:'⚖️',h:'Pick Your Moment',p:'Don\'t always attack — pick your moments. If you go too early and we lose the ball, there\'s a big gap behind you.'},
+        {a:'ca-green',i:'🔗',h:'Work With the RM',p:'You and the right midfielder are a pair. When she goes forward, you hold back. When she stays, you can go. One of you always covers.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Width and Support',items:['If RM is high, hold depth and width','Overlap when RM has drifted inside or space opens down the right','Give a simple option to the centre-backs when they need a release','Drive down the touchline — the byline is your friend for cut-backs','Cross to near post or feet — not looping balls']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Tracking and Defending 1v1',items:['Close down the winger quickly when she receives — show her inside','Don\'t commit until the winger has — patient 1v1 defending','Track diagonal runs — cutting in is as dangerous as going wide','When ball is on the left, tuck in and hold a compact shape','Never follow the winger too far into the centre']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Speed of Response',items:['Pushed forward and lost the ball: sprint — no walking, no looking','Won the ball: burst forward to support RM on a counter','Ball played long: race to win the second ball on the right side']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Ball-watching when the play is on the left — their winger is making a run','Overlapping at the wrong time — leaving a gap in behind','Being too narrow — leaving the wide channel free for the winger','Losing the winger at set pieces']},
+    ],
+    qualities:['1v1 Defending','Recovery Pace','Delivery from Wide','Awareness of Winger','Partnership with RM','Compactness'],
+    cues:{in:['Overlap or hold','Byline run','Cut-back option'],out:['Show her inside','Stay patient','Track the diagonal'],warn:['Track when it\'s far','Recover every run']},
+    note:'Same principles as the LB but mirrored. If both full-backs understand the same rule about when to go/stay, the whole back line stays connected.',
+    memo:{in:['If RM is high — I stay back','If RM is back — I can overlap','Byline and cut-back'],out:['Show her inside','Patient — don\'t commit first','Tuck in when ball is far side'],trans:['Pushed forward and lost it — SPRINT back','Won it — support RM quickly']}
+  },
+  lb: {
+    full:'Left Back', sub:'Wide defender — defend deep, attack with purpose',
+    overview:{
+      note:'"Don\'t let the winger beat you on the outside — that\'s the one thing. If you do that, you\'re doing your job. Then when we have the ball, get forward and help."',
+      cards:[
+        {a:'ca-gold',i:'🛡️',h:'Stop the Winger',p:'Your main job is stopping their right winger. Stay tight, follow her runs, and don\'t let her get behind you on the outside.'},
+        {a:'ca-blue',i:'🚀',h:'Join the Attack',p:'When your team has the ball, push forward down the left. Run past the left midfielder and get a cross in from near the line.'},
+        {a:'ca-red',i:'⚖️',h:'Pick Your Moment',p:'You can\'t attack every time. If you go forward and we lose the ball, there\'s a gap behind you. Choose the right moment to go.'},
+        {a:'ca-green',i:'🔗',h:'Work With the LM',p:'You and the left midfielder are a pair on the left side. One of you goes forward, the other stays back. Talk to each other constantly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Providing Width & Depth',items:['If LM has pushed high — you are the cover, stay deeper and wider','If space opens ahead — overlap: run beyond the LM and cross or cut back','Be a safe pass option for the centre-backs under pressure','Use the touchline — drive forward along it with confidence','Deliver quality crosses: look for feet, not heads']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Defending the Wide Channel',items:['Get tight to the winger when she has the ball','Stay on your feet in 1v1s — don\'t dive in unless certain','Track runs in behind — if the winger goes deep, you follow','When the ball is on the right, tuck in centrally','Don\'t be dragged too far infield — leave the wide channel and an opponent will find it']},
+      {cls:'trans',tag:'TRANSITIONS',h:'React and Recover',items:['Pushed forward and lost the ball: SPRINT back immediately','Win the ball: drive forward quickly before the opposition resets','First priority after winning it: combine with LM for a quick counter']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Ball-watching when it\'s on the right — the winger makes a run','Not recovering after an overlap — leaves a gap in behind','Diving in too early — if she beats you, the back post is exposed','Being too static in possession — always be an option']},
+    ],
+    qualities:['Defensive Discipline','1v1 Defending','Recovery Speed','Crossing','Partnership with LM','Positioning'],
+    cues:{in:['Overlap or hold','Be an option','Deliver quality'],out:['Get tight','Stay on your feet','Tuck in centrally'],warn:['Don\'t ball-watch','Recover every run']},
+    note:'The hardest thing for young LBs is knowing when NOT to attack. Simple rule: if the LM is high, she stays. If the LM is back, she can go.',
+    memo:{in:['If LM is high — I stay back','If LM is back — I can overlap','Deliver to feet not heads'],out:['Get tight when she receives','Stay on my feet','Tuck in when ball is far side'],trans:['Pushed forward and lost it — SPRINT back','Won it — combine with LM quickly']}
+  },
+  cb: {
+    full:'Centre-Back', sub:'Defensive spine — aerial presence, leadership, composure',
+    overview:{
+      note:'"Think ahead. The best defenders don\'t just react — they watch the striker\'s movement and the ball at the same time, so they\'re already in position before the danger arrives."',
+      cards:[
+        {a:'ca-gold',i:'🧱',h:'Stop Goals',p:'Your main job is stopping the other team from scoring. Win headers, block shots, and make sure no attacker gets an easy chance in front of goal.'},
+        {a:'ca-blue',i:'📐',h:'Hold the Line',p:'You and the other centre-back decide when to step forward and when to drop back. Stay level — if one of you is out of position, there\'s a gap.'},
+        {a:'ca-red',i:'🗣️',h:'Be the Voice',p:'You can see everything from the back. Tell your full-backs where to go, when to push up, when to drop. Talking is part of your job.'},
+        {a:'ca-green',i:'🎯',h:'Start It From the Back',p:'When we have the ball, don\'t just kick it long. Look for a pass to a midfielder, or carry it forward if you have space. Be calm on the ball.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Building From the Back',items:['Receive from the GK and look forward first — can you play into a midfielder?','If pressed, switch to the other CB — don\'t get caught going backwards','Step out with the ball when the striker has dropped off','Play through the press if confident; if not, go long early','Be the voice of calmness — set the tempo with a slow, deliberate pass']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Defending the Central Channel',items:['Hold your shape — don\'t be dragged wide by movement','If the striker drops into midfield: follow her or hand to a CM — decide and communicate','Win headers cleanly — attack the ball, don\'t let it come to you','Cover the other CB when she steps out to press','Stay on your feet — a sliding tackle that misses leaves the back post open']},
+      {cls:'trans',tag:'TRANSITIONS',h:'React, Cover, Communicate',items:['Ball lost in midfield: organise the defensive line — push up or drop?','Counter-attack: communicate with the full-back quickly','Ball won: make yourself available for a simple pass to restart']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Being ball-side only — losing the runner on the other shoulder','Following a striker too far into midfield — leaves a gap','Holding the ball too long under pressure','Not communicating the offside line — both CBs must be on the same page']},
+    ],
+    qualities:['Aerial Ability','Positional Awareness','Communication','1v1 Defending','Composure on Ball','Line Management'],
+    cues:{in:['Look forward first','Switch early','Set the tempo'],out:['Hold the line','Cover cover cover','Win it early'],warn:['Don\'t be dragged','Decide and shout']},
+    note:'The CBs are the team\'s command centre. Work on them talking to each other constantly — even in training. If they\'re communicating well, the whole defensive shape tends to hold automatically.',
+    memo:{in:['Look forward first — midfielder or switch','Step out if striker drops off','Set the tempo when team is panicking'],out:['Hold shape — don\'t be dragged','Step or hand to CM — shout it','Cover if partner steps'],trans:['Ball lost — push up or drop? Decide loud','Ball won — be the simple option']}
+  },
+  cb2:{
+    full:'Centre-Back', sub:'Defensive spine — strength, reading, and build-up',
+    overview:{
+      note:'"You and your centre-back partner are one team within the team. Talk to each other before every phase — if she steps forward, you cover. Never both go at the same time."',
+      cards:[
+        {a:'ca-gold',i:'🧱',h:'Win Your Battles',p:'Your job is to win duels, block shots, and stop the other team getting through the middle. Be physical, be brave, be first to the ball.'},
+        {a:'ca-blue',i:'📐',h:'Cover Your Partner',p:'When your partner steps out to challenge, you drop back to cover. You two have to work as one — if she goes, you stay.'},
+        {a:'ca-red',i:'🗣️',h:'Talk and Organise',p:'Alert the full-backs when danger is coming. Call for the ball when you\'re free. Keep talking to the goalkeeper and the other CB throughout.'},
+        {a:'ca-green',i:'🎯',h:'Play It Out',p:'When we have the ball, look for a pass forward rather than just clearing it. A good pass from the back can start an attack quickly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Passing Out and Switching',items:['First option: is there a midfielder to play into? If yes, do it early','Switch the ball to change the point of attack','Play long over the top if the striker makes a run in behind','Carry the ball into midfield if the striker drops and space opens','Stay available as a back-pass option — don\'t disappear from GK\'s view']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Covering and Competing',items:['Step out to press when the ball is played to feet in front','Cover the other CB when she steps — be the second ball','Deal with the second striker if there are two','Win the physical duels — don\'t back off headers or 50/50s','Alert the full-back to danger — call her back if needed']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Fast Decisions',items:['After a clearance: has the line held? Push up or recover?','Ball won: play quickly into midfield — don\'t hold it','Shot conceded: communicate immediately to reset the shape']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Both CBs stepping at the same time — leaves the channel empty','Losing concentration when the ball is far away — striker makes a diagonal run','Being too aggressive and losing the race when attacker has already turned','Not matching the offside line with the other CB']},
+    ],
+    qualities:['Aerial Duels','1v1 Defending','Covering Partner','Distribution','Line Coordination','Physical Strength'],
+    cues:{in:['Switch it early','Play forward','Stay in GK\'s view'],out:['Step and cover','Win the 50/50','Alert the full-back'],warn:['Never both step','Match the offside line']},
+    note:'The CB pairing is the team\'s most important partnership. In training, give them scenarios where they must decide together — one steps, one covers. Make the communication habit automatic.',
+    memo:{in:['Play forward or switch','Carry if space opens','Stay visible to GK'],out:['Step to press or cover — not both','Win the duel','Alert full-back if she\'s caught'],trans:['Clearance — hold or push?','Ball won — play it fast into midfield']}
+  },
+  lm: {
+    full:'Left Midfielder', sub:'Wide engine — width, delivery, and defensive tracking',
+    overview:{
+      note:'"Get down the left, reach the line, and deliver. That\'s your job going forward. But every single time we lose the ball, I need to see you running back. Every time."',
+      cards:[
+        {a:'ca-gold',i:'⚡',h:'Attack Down the Left',p:'Run at the right back, beat her if you can, and get to the line before crossing. A cross from the line is much harder to defend than one from deep.'},
+        {a:'ca-blue',i:'🔄',h:'Read the Situation',p:'Sometimes stay wide, sometimes come inside. It depends on where your teammates are. Move to wherever you can help most.'},
+        {a:'ca-red',i:'🛡️',h:'Get Back and Defend',p:'When we don\'t have the ball, you have to track back and help the left back. No matter how far forward you were — you run back every time.'},
+        {a:'ca-green',i:'🤝',h:'Work With the LB',p:'You and the left back are a pair. When you go forward, she stays back. When she goes forward, you cover. Keep talking to each other.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Attacking on the Left',items:['Get in behind the right back whenever possible — pace and the byline are your weapons','Cut inside if the right back defends wide — shoot or play the through ball','Combine with the LB on overlaps — use her run to create the 2v1','Early delivery when the striker makes near-post runs','Move infield when the LB overlaps — create separation']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Tracking and Pressing',items:['When ball is on the right: hold your left midfield line, stay connected','When ball comes to your side: press the right back immediately','Track the right back if she overlaps — don\'t lose her','If countered down the middle, tuck in and support the CBs','Work rate is non-negotiable — the shape relies on wide players pressing']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Quick Switches',items:['Ball won in your zone: drive forward immediately — space to run into','Ball lost near their box: be first to press','Long transitions: track back and get into your defensive line quickly']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Drifting too central — leaving the left channel empty','Not tracking back — leaving the LB to defend against a 2v1','Holding the ball too long in wide areas — byline opportunity passes','Not timing the overlap run with LB']},
+    ],
+    qualities:['Pace & Directness','Crossing & Delivery','1v1 Ability','Defensive Tracking','Linking with LB','Work Rate'],
+    cues:{in:['Get to the byline','Deliver early','Use the LB'],out:['Hold your line','Press now','Track the run'],warn:['Stay wide','Track every time']},
+    note:'The biggest development moment for wide midfielders is learning that width in possession means little if they ball-watch in defence. Make tracking back a non-negotiable habit early.',
+    memo:{in:['Stay wide — get to the byline','Deliver early to near-post runs','Use the LB\'s overlap'],out:['Hold left midfield line when far side','Press right back hard when it comes','Track her overlap'],trans:['Won it wide — drive forward','Lost it — track back immediately']}
+  },
+  rm: {
+    full:'Right Midfielder', sub:'Wide engine — delivery, directness, and pressing from the right',
+    overview:{
+      note:'"The right side is yours. Attack it with confidence, deliver good balls, and create goals. But when we don\'t have the ball — get back in your line. Every time."',
+      cards:[
+        {a:'ca-gold',i:'⚡',h:'Attack Down the Right',p:'Run at the left back, get past her if you can, reach the line, and deliver. A cross from the line is the most dangerous kind.'},
+        {a:'ca-blue',i:'🔄',h:'Attack and Defend',p:'You have to work in both directions. Attacking is the fun part — but if you don\'t track back and defend, the right back ends up on her own every time.'},
+        {a:'ca-red',i:'🛡️',h:'Hold Your Position',p:'When the other team has the ball, get back into your right midfield position. Stay in your line and make it hard for them to play through.'},
+        {a:'ca-green',i:'🤝',h:'Work With the RB',p:'You and the right back are a pair. When you go forward, she stays. When she goes forward, you cover. One of you always holds.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating From the Right',items:['Run in behind the left back — your pace is a weapon','Receive to feet, turn, and drive: don\'t let the ball stop in wide areas','Cut inside onto the left foot to shoot or play a through ball','Combine with the RB on overlaps — let her run outside while you drift in','Deliver across goal from the byline — far post runs are gold']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Right-Side Wall',items:['When ball is on the left: hold the right midfield line, compact and ready','When ball comes right: press the left back hard','Track the left back\'s overlapping run — don\'t lose her','When beaten, sprint back inside to support the RB','Hold the defensive width — don\'t follow play too centrally']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Speed and Decision',items:['Ball won on the right: drive immediately — turn defence into attack in seconds','Ball lost going forward: pressure the nearest opponent','Ball won centrally: make a run down the right channel']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Coming too central in possession and removing width','Not pressing the left back when she has the ball wide','Losing the left back\'s overlapping run — leads to 2v1 against RB','Holding the ball too long at the byline']},
+    ],
+    qualities:['Pace & Directness','1v1 Ability','Crossing','Defensive Tracking','Pressing','RB Partnership'],
+    cues:{in:['Run in behind','Turn and drive','Deliver from the byline'],out:['Hold your line','Press the LB','Track the run'],warn:['Keep your width','Don\'t lose the runner']},
+    note:'At youth level the RM often has a foot advantage (right-footed, can cut inside naturally). Encourage her to drive inside and shoot.',
+    memo:{in:['Stay wide — get to the byline','Turn and drive when you receive','Cut inside to shoot or through ball'],out:['Hold right midfield line when far side','Press left back hard when it comes','Track her overlap'],trans:['Won it wide — drive forward','Lost it — get back inside to support RB']}
+  },
+  lcm: {
+    full:'Left Centre-Mid', sub:'The engine — connecting, covering, controlling',
+    overview:{
+      note:'"You never stop moving. One second you\'re getting the ball from the defender, the next you\'re arriving in the box on the end of a cross. The centre mid covers the whole pitch."',
+      cards:[
+        {a:'ca-gold',i:'🔗',h:'Connect the Team',p:'You link your defenders to your attackers. Receive the ball from the back, turn, and get it forward quickly to keep your team moving.'},
+        {a:'ca-blue',i:'🧭',h:'Control the Pace',p:'You decide how fast the game goes. Play quickly when there\'s space, slow it down when your team needs to settle.'},
+        {a:'ca-red',i:'🛡️',h:'Protect the Defence',p:'When the other team attacks, drop in front of the defenders and stop the ball getting through the middle. You\'re a shield.'},
+        {a:'ca-green',i:'🏃',h:'Arrive Late in the Box',p:'When your winger or full-back crosses, make a run into the box. You should be scoring goals and getting assists from deep runs.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Linking and Driving',items:['Show for the ball constantly — drop into pockets, step into half-spaces','Receive on the half-turn so you can play forward without hesitation','Combine with the LM: short-short-long, or give-and-go into the channel','Arrive in the box when the LM or LB is crossing — be the runner','Spread play to the right CM if the left side is congested']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing and Covering',items:['Press the ball carrier if she\'s in your zone and the angle is right','If not pressing, drop in front of the CB to block central passing lanes','Track a runner coming from deep on the left','Stay connected to the right CM — don\'t both chase the same ball','After the LM presses wide, shift left to cover the space she\'s vacated']},
+      {cls:'trans',tag:'TRANSITIONS',h:'React Immediately',items:['Ball won: look forward — can you find the striker or the LM in one pass?','Ball lost: press hard for 3–5 seconds while opponents are off-balance','Long transitions: hold a mid-block position — don\'t chase aimlessly']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Drifting too wide — the half-space between LM and CB is her zone','Both CMs chasing the same ball — one presses, one holds','Not arriving into the box — she should be a threat from deep','Holding the ball too long in tight central areas']},
+    ],
+    qualities:['Scanning & Awareness','Passing Range','Work Rate','Press Timing','Arriving Late','Covering Partner'],
+    cues:{in:['Half-turn','Find the pocket','Give and go'],out:['Press or hold','Block the lane','Stay connected'],warn:['Hold the half-space','Don\'t both chase']},
+    note:'The LCM and RCM partnership is the team\'s rhythm section. When one goes, the other must instinctively know to cover. This takes repetition.',
+    memo:{in:['Show for the ball — half-turn','Give and go with LM','Arrive late into the box'],out:['Press or drop — decide quickly','Block lane in front of CB','One presses, one holds'],trans:['Won it — find striker in one pass','Lost it — press for 3 seconds']}
+  },
+  rcm: {
+    full:'Right Centre-Mid', sub:'The engine — right side link, defensive shield, late runner',
+    overview:{
+      note:'"You and the other centre mid are always balanced — when she goes forward, you hold back. You should never both be attacking or both be defending at the same time."',
+      cards:[
+        {a:'ca-gold',i:'🔗',h:'Connect the Right Side',p:'Receive the ball on the right, turn, and keep your team moving forward. You link your right back and right midfielder to the strikers.'},
+        {a:'ca-blue',i:'🧭',h:'Control the Pace',p:'Read the game and decide when to play quickly and when to keep the ball. You set the rhythm for your half of the team.'},
+        {a:'ca-red',i:'🛡️',h:'Protect the Defence',p:'Drop in front of the right defender and stop attacks coming through. Win the ball back and get your team going again quickly.'},
+        {a:'ca-green',i:'🏃',h:'Arrive Late in the Box',p:'Time your runs into the box — don\'t go too early. Arrive just as the ball is being delivered and you\'ll catch defenders off guard.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Connecting Right Side',items:['Drop into the half-space between CB and RM — where space opens','Play quickly: one touch or two, then move','Drive through the right channel when the RM has pulled wide','Switch play to the left CM when the right is congested','Arrive late into the box — time the run']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Screening and Recovering',items:['Press when the ball is played to feet in front — close fast','Otherwise: drop in front of the CB and screen passing lanes','When the RM presses wide, fill the space she left','Don\'t both CMs press the same zone — one high, one low','Win the second ball — be ready after a clearance']},
+      {cls:'trans',tag:'TRANSITIONS',h:'First to React',items:['Ball won: play forward to a striker immediately if the lane is there','Ball lost: press instantly while the opponent is facing their goal','Long ball cleared: be ready to win the knockdown']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Both CMs going to the same area — massive gap left','Receiving square to the play — can only go backwards','Overrunning in attack and not recovering','Going quiet when the ball is far away']},
+    ],
+    qualities:['Half-Space Awareness','Quick Passing','Defensive Screening','Late Runs','Press Timing','CM Partnership'],
+    cues:{in:['Drop into the half-space','Play and move','Time the run'],out:['Press or screen','Fill RM\'s space','Win the second ball'],warn:['Never both in same zone','Recover every run']},
+    note:'Celebrate the defensive actions — the interception, the press, the covering run — as much as the assists.',
+    memo:{in:['Drop into right half-space','Play quick — one or two touches','Time the late run into the box'],out:['Press or screen — decide early','Fill space when RM presses wide','One presses, one holds'],trans:['Won it — play forward immediately','Lost it — press while they\'re facing goal']}
+  },
+  cm: {
+    full:'Central Midfielder', sub:'The engine room — connects, controls, and covers',
+    overview:{
+      note:'"You are the heartbeat of the team. When we have the ball, keep it moving. When we don\'t, win it back fast. You never really get a rest — but you make the whole team work."',
+      cards:[
+        {a:'ca-gold',i:'🔗',h:'Link Everything Together',p:'You connect the back four to the forwards. Get the ball from your defenders, turn, and play it forward to keep your team on the front foot.'},
+        {a:'ca-blue',i:'🧭',h:'Be the Voice',p:'From the middle you can see everything. Tell teammates where to go, call for the ball when you\'re free, and keep your team organised.'},
+        {a:'ca-red',i:'🛡️',h:'Win It Back',p:'The moment your team loses the ball, you\'re one of the first to chase. Press quickly and get the ball back before the other team can build.'},
+        {a:'ca-green',i:'⚡',h:'Cover the Whole Pitch',p:'A good central midfielder runs everywhere — back to help defend, then forward into the box to score. Pick your moments and keep going.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Building & Progressing',items:['Show for the ball constantly — drop into pockets, find angles','Receive on the half-turn so you can see what\'s in front before the ball arrives','Play quick and simple in tight areas; drive or carry when there\'s space ahead','Support the player on the ball — always offer a short option','Arrive late into the box for second balls when attacking']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing & Covering',items:['React instantly to the team losing the ball — no ball-watching','Press the ball carrier if she\'s within range and the angle is right','Otherwise drop into shape and screen passing lanes in front of the defence','Track runners coming through the middle','Work to be compact — stay connected to the other CM and the forwards']},
+      {cls:'trans',tag:'TRANSITIONS',h:'The Moments That Decide Games',items:['Winning the ball: look up immediately and play forward if safe','Losing the ball: press within 3–5 seconds while opponents are disorganised','Win the second ball — stay on your feet in challenges']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Ball-watching when ball is far away — the CM is never really off the pitch','Not arriving into the box — she should be a goal threat','Both CMs chasing the same ball — one presses, one holds','Holding too long in tight central areas']},
+    ],
+    qualities:['Scanning Before Receiving','Passing Accuracy','Work Rate','Decision Speed','Positional Discipline','Ball Retention'],
+    cues:{in:['Scan early','Half-turn','Find the pocket'],out:['React fast','Press or drop','Block the lane'],warn:['No ball-watching','Don\'t both press']},
+    note:'At youth level the CM role can look messy because she covers so much pitch. The key question is always: is she active or passive? An active CM who makes a mistake is still doing her job.',
+    memo:{in:['Scan — half-turn — receive','Give and go then move','Arrive late in box'],out:['React instantly to turnover','Press or screen — decide','One presses, one holds'],trans:['Won it — play forward fast','Lost it — press for 3 seconds']}
+  },
+  cdm: {
+    full:'Central Defensive Midfielder', sub:'The anchor — shield the back four, connect everything',
+    overview:{
+      note:'"You might not score many goals, but without you the team falls apart. You protect the defenders, start attacks, and let the others push forward — because you always hold."',
+      cards:[
+        {a:'ca-gold',i:'🛡️',h:'Protect the Defenders',p:'You sit just in front of your back four and stop the other team getting through the middle. Win the ball and clear the danger before it reaches your defenders.'},
+        {a:'ca-blue',i:'🔗',h:'Start Every Attack',p:'When your team has the ball, you receive it from the defenders and pass it forward to start attacks. Every move goes through you.'},
+        {a:'ca-red',i:'📐',h:'Stay in Position',p:'While the other midfielders go forward, you hold your position. This is the most important rule of the role — if you go, there\'s no cover.'},
+        {a:'ca-green',i:'🧭',h:'Organise Your Team',p:'You can see the whole pitch from the middle. Tell your midfielders when to press, when to hold back, and when to push forward.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Connecting and Controlling',items:['Drop between the CBs or just in front to always offer a passing option','Receive, assess, distribute — quickly. One or two touches maximum','Switch play from left to right through the pivot position','Play into the CMs who have moved forward — then hold your position','Never join attacks — if both other CMs go, you hold. Always.','Be the calm head — slow the play down when the team is panicking']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Screening and Winning',items:['Sit in front of the back four and block all central passing lanes','Don\'t be drawn wide — let the other midfielders press the flanks','Win the ball in the air and on the ground — second balls are yours','Track any midfielder who tries to receive between the lines in your zone','If pressed wide, immediately return to the central position']},
+      {cls:'trans',tag:'TRANSITIONS',h:'The Pivot Point',items:['Ball won: receive it immediately and play forward quickly','Ball lost: drop immediately in front of the back four — close the central lane','Attacker comes in behind: cover centrally, don\'t go wide']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Joining attacks — she must stay, even when tempted','Being drawn too wide — the central lane opens up behind her','Holding the ball too long — her job is to distribute quickly','Not communicating — she\'s the bridge between defence and midfield']},
+    ],
+    qualities:['Positional Discipline','Passing Accuracy','Defensive Screening','Communication','Composure Under Pressure','Reading the Game'],
+    cues:{in:['Drop to offer the option','One or two touches','Switch play'],out:['Sit in front of the four','Block the lane','Win the second ball'],warn:['Never join attacks','Stay central']},
+    note:'The CDM is the most positionally disciplined role in the team. At youth level the temptation to join attacks is enormous — frame it as a leadership role, not a restriction.',
+    memo:{in:['Drop to offer the back four an option','One or two touches — distribute quickly','Hold — the others go, I stay'],out:['Sit in front of back four','Win every second ball in front of defence','Stay central — don\'t be dragged wide'],trans:['Ball won — receive and play forward','Ball lost — drop centrally immediately']}
+  },
+  rw: {
+    full:'Right Winger', sub:'Wide attacker — pace, 1v1, and delivery',
+    overview:{
+      note:'"Stay wide, run at the left back, and get to the line before you cross. A cross from the line is so much harder to defend. Once you\'ve done that — then look to cut inside."',
+      cards:[
+        {a:'ca-gold',i:'⚡',h:'Run at the Defender',p:'As soon as you get the ball, run straight at the left back. Use your pace and make her backpedal — that\'s where you win the advantage.'},
+        {a:'ca-blue',i:'🎯',h:'Get to the Line',p:'Push all the way to the line before you cross. From there you can cut the ball back or drive it across goal for a teammate to finish.'},
+        {a:'ca-red',i:'🛡️',h:'Press From the Front',p:'When we don\'t have the ball, you press the left back straight away. Your press sets the direction for the whole team — everyone follows your lead.'},
+        {a:'ca-green',i:'🤝',h:'Combine With Teammates',p:'Use the right back and the right midfielder to create two-against-one situations. Pass, move, and get into crossing positions together.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Attacking the Right Flank',items:['Run at the left back immediately when you receive — pace is your weapon','Get to the byline before you cross — crosses from deep are easier to defend','Cut inside onto your stronger foot to shoot when the left back sits off','Combine with the right back on overlaps — you inside, her outside','Arrive in the box on crosses from the left — be the far-post runner']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing From the Front',items:['Press the left back when she has the ball — set the angle to force her back','Stay connected to the other forwards — press in a unit','When the opposition plays long, drop to your right midfield position','Track back to help the right back if she\'s isolated','When the ball is on the left, hold a right midfield position']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Fast Reactions',items:['Ball won by a midfielder: sprint forward into the channel — be the outlet','Ball lost going forward: press the nearest defender immediately','Long ball forward: race the CB to the ball in the right channel']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Crossing too early from deep — crosses from byline are far more dangerous','Drifting inside and congesting the centre when teammates are already there','Not tracking back — leaves the right back alone against 2v1','Standing and watching when the ball is on the left — make a run']},
+    ],
+    qualities:['Pace & Directness','1v1 Ability','Crossing from Byline','Press Intensity','Movement Off the Ball','Combination Play'],
+    cues:{in:['Run at her immediately','Get to the byline first','Cut inside when she sits off'],out:['Press from the front','Stay connected','Track back when needed'],warn:['Byline before crossing','Track back every time']},
+    note:'Wingers who only attack are a liability in a 4-3-3 or 3-4-3 because they leave the full-back completely isolated. Establish the tracking back habit first — the attacking qualities will develop naturally.',
+    memo:{in:['Run at left back immediately','Get to the byline — then deliver','Cut inside when she sits off'],out:['Press and set the angle','Stay connected to other forwards','Drop to right mid when ball is far'],trans:['Ball won — sprint into the channel','Ball lost — press now']}
+  },
+  lw: {
+    full:'Left Winger', sub:'Wide attacker — pace, 1v1, and delivery',
+    overview:{
+      note:'"Run straight at the right back, make her uncomfortable, and get to the line. Then decide — cross it, cut inside, or play it back. And when we don\'t have the ball, press immediately."',
+      cards:[
+        {a:'ca-gold',i:'⚡',h:'Run at the Defender',p:'Get the ball and run straight at the right back. Be direct, be brave, and use your pace to get past her or win a foul.'},
+        {a:'ca-blue',i:'🎯',h:'Get to the Line',p:'Don\'t cross early — push all the way to the line first. From there you can cut it back across goal or drive it to the near post.'},
+        {a:'ca-red',i:'🛡️',h:'Press From the Front',p:'When we don\'t have the ball, you go first. Chase the right back straight away — your press tells the rest of the team where to go.'},
+        {a:'ca-green',i:'🤝',h:'Combine on the Left',p:'Link up with the left back and left midfielder. Pass and move, create two-against-one situations, and get into good crossing positions.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Attacking the Left Flank',items:['Run at the right back immediately — your pace is the threat','Get to the byline before crossing — byline crosses are much harder to defend','Cut inside onto your stronger foot to shoot when she sits off','Combine with the left back — you inside, her outside for 2v1','Arrive at the far post on crosses from the right side']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing From the Front',items:['Press the right back when she has the ball — angle to force her back','Stay connected to the ST and other winger — press as a unit','When opposition plays long, drop to left midfield position','Track back to help the left back if she\'s isolated','When ball is on the right, hold a left midfield position']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Fast Reactions',items:['Ball won by a midfielder: sprint into the left channel immediately','Ball lost going forward: press the nearest defender immediately','Long ball forward: race the CB to the ball in the left channel']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Crossing too early from deep — byline is always better','Drifting inside and crowding the striker when space is already narrow','Not tracking back — leaves LB alone and isolated','Going quiet when the ball is on the right side']},
+    ],
+    qualities:['Pace & Directness','1v1 Ability','Crossing from Byline','Press Intensity','Movement Off the Ball','Combination Play'],
+    cues:{in:['Run at her immediately','Get to the byline first','Cut inside when she sits off'],out:['Press and set the angle','Stay connected','Track back when needed'],warn:['Byline before crossing','Track back every time']},
+    note:'Mirror of the RW role. If you have a naturally right-footed left winger who cuts inside, use that as a weapon — but make sure she understands the tracking back responsibility too.',
+    memo:{in:['Run at right back immediately','Get to the byline — then deliver','Cut inside when she sits off'],out:['Press and set the angle','Stay connected to other forwards','Drop to left mid when ball is far'],trans:['Ball won — sprint into left channel','Ball lost — press now']}
+  },
+  st: {
+    full:'Striker', sub:'Goal threat — movement, hold-up, and clinical finishing',
+    overview:{
+      note:'"Keep moving — never stand still. The best strikers are already making their run while the ball is still travelling. Watch the defender\'s feet and go the other way."',
+      cards:[
+        {a:'ca-gold',i:'⚽',h:'Score Goals',p:'Your job is simple — score. Everything else you do is just about getting yourself into a position where you can finish. Stay focused on that.'},
+        {a:'ca-blue',i:'🔗',h:'Hold It Up',p:'When the ball comes to you with your back to goal, hold it, keep it, and wait for a teammate to arrive — then play them in or spin and go yourself.'},
+        {a:'ca-red',i:'🏃',h:'Keep Moving',p:'Never stop moving. Make runs towards goal, runs wide, runs in behind. A striker who stands still is easy to mark — stay on the move.'},
+        {a:'ca-green',i:'🛡️',h:'Press the Defenders',p:'When they have the ball, chase their defenders straight away. You decide which direction the whole team presses — so make it count.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating & Finishing',items:['Make runs in behind — diagonal, curved, driven. Don\'t stand still waiting','When you receive with back to goal: hold, feel the pressure, lay off quickly','When you receive facing goal: turn fast and attack the space','Get into the box on crosses: near post run or back-post arrival','Take shots early — don\'t wait for the perfect moment','When support arrives, combine quickly — one-two into space']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing From the Front',items:['Start the press as soon as their GK has the ball — close the space immediately','Press to show the defender down one side — channel her into a trap','Don\'t press recklessly without support — hold shape and make the pitch small','Track CBs who step out with the ball — don\'t let them carry freely','When the press is beaten, drop to the midfield line and hold shape']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Turning Moments Into Goals',items:['Ball won: burst into space immediately — be the counter-attack option','Ball won deep: make the run into the channel immediately — get it early','Ball lost: press instantly — opposition defence isn\'t set yet']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Standing still waiting for the ball — a stationary striker is easy to mark','Pressing without an angle — an unguided press gives the defender an easy option','Holding the ball too long in the box — take the shot','Dropping too deep and leaving no threat in behind']},
+    ],
+    qualities:['Goal-Scoring Instinct','Movement & Timing','Hold-Up Play','Pressing Intelligence','First Touch in Box','Decision Speed'],
+    cues:{in:['Move before it arrives','Turn and go','Get on the end of it'],out:['Press with an angle','Show her one way','Don\'t press alone'],warn:['Keep moving','Shoot earlier']},
+    note:'A lone striker\'s most important habit is keeping movement constant. Even without the ball she must be working — making runs that drag defenders, pressing to force errors, creating space for arriving midfielders.',
+    memo:{in:['Move before the ball arrives','Back to goal: hold, lay off, spin','Take the shot as soon as it opens'],out:['Press with an angle — show her one way','Don\'t press alone with no support','Drop to midfield if press is beaten'],trans:['Ball won — burst into space immediately','Ball lost — press NOW']}
+  },
+  ls: {
+    full:'Left Striker', sub:'Goal threat — movement, hold-up, and clinical finishing',
+    overview:{
+      note:'"When your partner drops back, you run in behind. That\'s the deal between you two. If you both drop or both run at the same time, it breaks down — so watch her and do the opposite."',
+      cards:[
+        {a:'ca-gold',i:'⚽',h:'Score Goals',p:'Your main job is to score. Everything you do — your movement, your runs, your pressing — is about getting yourself into a position to finish.'},
+        {a:'ca-blue',i:'🔄',h:'Work as a Pair',p:'You and the right striker move together. When she comes short, you go long. When she holds it up, you make the run in behind. Watch each other.'},
+        {a:'ca-red',i:'🤝',h:'Hold It Up',p:'When the ball comes to you with pressure on you, hold it in, keep it safe, and wait for a teammate to arrive before playing them in.'},
+        {a:'ca-green',i:'🏃',h:'Press Together',p:'When the other team has the ball, you and your strike partner press straight away as a pair. One shows the way, the other cuts off the switch.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating & Finishing',items:['Make runs in behind — diagonal, curved, driven. Don\'t stand still waiting','When RS drops to receive — make the run in behind immediately','When you receive with back to goal: hold, feel the pressure, lay off quickly','Get into the box on crosses: near post run or back-post arrival','Take shots early — don\'t wait for the perfect moment','Work in combination — one drops short, one goes long']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing From the Front',items:['Start the press as soon as their GK has the ball — close the space immediately','Press to show the defender down one side — channel her into a trap','Stay connected to the RS — press in pairs, not one chasing madly','Don\'t press recklessly without support — hold shape','Track CBs who step out with the ball']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Turning Moments Into Goals',items:['Ball won: burst into space immediately — be the counter-attack option','Ball won deep: make the run to receive the quick pass forward','Ball lost: press instantly with RS — opposition defence isn\'t set yet']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Standing still waiting for the ball — a stationary striker is easy to mark','Both strikers dropping deep at the same time — no threat in behind','Both strikers making the same run — removes options for the passer','Pressing without an angle — gives the defender an easy option']},
+    ],
+    qualities:['Goal-Scoring Instinct','Movement & Timing','Hold-Up Play','RS Partnership','Pressing Intelligence','First Touch in Box'],
+    cues:{in:['Move before it arrives','When RS drops — I run','One drops one runs'],out:['Press in pairs','Show her one way','Stay connected'],warn:['Keep moving','Don\'t both drop','Shoot earlier']},
+    note:'The striking pair is the most interdependent partnership on the pitch. They should be talking before every build-up sequence about who is dropping and who is running. Make it a habit.',
+    memo:{in:['Move before the ball arrives','When RS drops — I run in behind','Back to goal: hold, lay off, spin'],out:['Press in pairs — stay connected','Show her one way','Don\'t press alone'],trans:['Ball won — burst into space','Ball lost — press NOW with RS']}
+  },
+  rs: {
+    full:'Right Striker', sub:'Goal threat — movement, pressing partner, clinical in the box',
+    overview:{
+      note:'"Even if you don\'t score, you\'re still doing your job if you\'re winning the ball back and creating chances. Goals aren\'t everything — keep working, keep moving, and they\'ll come."',
+      cards:[
+        {a:'ca-gold',i:'⚽',h:'Score Goals',p:'Your main purpose is to score. All the running you do, all the pressing — it\'s all about putting yourself in the right place to finish when the chance comes.'},
+        {a:'ca-blue',i:'🔄',h:'Work as a Pair',p:'You and the left striker balance each other. When she drops back, you run in behind. When she runs, you drop. Watch her and do the opposite.'},
+        {a:'ca-red',i:'🤝',h:'Hold It Up',p:'When the ball arrives with your back to goal, shield it from the defender, keep it, and wait for a teammate to arrive before turning or laying off.'},
+        {a:'ca-green',i:'🏃',h:'Press Together',p:'You and your strike partner press the defenders together as a pair. Your job is to force the play one way and cut off the easy pass.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Moving and Finishing',items:['If the LS drops to receive — make the run in behind immediately','Attack the space between the CBs — not just down channels','Make near-post flick-on runs when the ball is wide','Arrive late to back-post crosses — keeper and CBs are often caught facing the ball','One-touch in tight areas — trust the first opportunity','Make the shot as soon as the opportunity opens']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Pressing and Closing',items:['Mirror the LS in the press — stay in her line of sight','If the LS presses right, show inside so the CB can\'t switch easily','Drop into a midfield shape if the opposition plays long and bypasses the press','Track any deep midfielder who steps forward into your zone','Win the second ball when it lands in the opponent\'s half']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Instant Decisions',items:['Ball won high up the pitch: shoot or play the LS through immediately','Ball lost: react fast, press in pair with LS before the defender has composure','Long ball: race the CB to it — even if you don\'t win it, you put pressure on']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Both strikers making the same run — removes options for the passer','Pressing too hard and getting caught behind the ball','Not tracking back far enough when needed','Taking too many touches in the penalty area — trust the first opportunity']},
+    ],
+    qualities:['Movement & Timing','Finishing Instinct','Hold-Up Play','LS Partnership','Pressing Intelligence','Penalty Box Presence'],
+    cues:{in:['Diagonal run if LS drops','Attack between the CBs','Back-post arrival'],out:['Mirror the LS','Show inside on the press','Win the second ball'],warn:['No duplicate runs','Trust your first touch']},
+    note:'The RS and LS should train together regularly with specific focus on their movement relationship. A simple rule works: if one is dropping, the other runs. Show this with cones so they see it visually.',
+    memo:{in:['LS drops — I run in behind diagonally','Attack between the CBs','Back post on crosses — arrive late'],out:['Mirror the LS — press in pairs','Show inside so she can\'t switch','Win the second ball in their half'],trans:['Ball won high — shoot or play LS through','Ball lost — press NOW with LS']}
+  },
+  lwb: {
+    full:'Left Wing-Back', sub:'The complete flank player — defend like a full-back, attack like a winger',
+    overview:{
+      note:'"You are the hardest-working player on the pitch. When we have the ball you\'re a winger — attack, deliver, create. The moment we lose it, you sprint back and become a defender. Every single time."',
+      cards:[
+        {a:'ca-orange',i:'⚡',h:'You Own the Left Side',p:'The entire left side of the pitch is yours. When we have the ball, push forward like a winger and deliver crosses. When we don\'t, drop back and defend like a full-back.'},
+        {a:'ca-blue',i:'🏃',h:'The Fittest Player',p:'This is the most demanding position on the pitch. You sprint forward to attack, then sprint back to defend — over and over for the whole game.'},
+        {a:'ca-red',i:'🛡️',h:'Drop Into the Back Five',p:'When the team loses the ball, drop back alongside the three centre-backs. You become a left back and help make a solid line of five across the back.'},
+        {a:'ca-green',i:'🔗',h:'Cover Each Other',p:'When you push forward, the left centre-back covers the space you\'ve left. When you\'re back, she can step higher. Talk to her the whole game.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Attacking the Left Flank',items:['Push high as soon as the team has possession — your width stretches the opposition','Receive from the CM or LCB and drive at the right back immediately','Get to the byline and deliver — cut-back, near post or driven cross','If the right back is tight, cut inside to shoot or find the arriving striker','Combine with the left CM — she supports, you overlap, creating 2v1s']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Dropping Into the Back Five',items:['Drop back immediately when the team loses possession — no hesitation','Take up your position alongside the LCB as a left back in a back five','Get tight to the opposing winger or right back — don\'t give her space','Track runs in behind — if she goes deep, you go with her','Stay connected to LCB — who has the winger, who covers inside']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Speed is Everything',items:['We lose the ball: you must be the fastest person to recover — sprint, no walking','We win the ball: burst forward immediately — the space down the left is yours','Long ball forward: anticipate and make the run before the ball lands']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Not recovering after an attack — biggest weakness of a wing-back who doesn\'t track back','Being caught too high when the team loses the ball','Delivering too early before reaching the byline — crosses from deep are easy to defend','Losing the winger when tracking back']},
+    ],
+    qualities:['Stamina & Recovery Speed','1v1 Attacking Ability','Crossing & Delivery','Defensive Tracking','LCB Communication','Decision Speed'],
+    cues:{in:['Push high immediately','Get to the byline','Combine with LCM'],out:['Drop back — back five now','Get tight to the winger','Track every run'],warn:['Recover every time','Don\'t get caught high']},
+    note:'The wing-back role is the most physically demanding on the pitch. The key habit to build first is the recovery run — everything else is secondary. A wing-back who attacks brilliantly but doesn\'t recover is a liability.',
+    memo:{in:['Push high as soon as we have the ball','Get to the byline — deliver from there','Combine with LCM for 2v1'],out:['Drop into back five immediately','Get tight to the winger','Track every run behind me'],trans:['Lost it — sprint back, fastest recovery','Won it — burst forward, that space is mine']}
+  },
+  rwb: {
+    full:'Right Wing-Back', sub:'The complete flank player — defend like a full-back, attack like a winger',
+    overview:{
+      note:'"The right side is yours. Attack when we have the ball, defend when we don\'t. How fast you switch between the two is what separates a good wing-back from a great one."',
+      cards:[
+        {a:'ca-orange',i:'⚡',h:'You Own the Right Side',p:'The entire right side of the pitch is yours. Push forward like a winger when we have the ball, drop back and defend like a full-back when we don\'t.'},
+        {a:'ca-blue',i:'🏃',h:'The Fittest Player',p:'This is the most demanding position on the pitch. You sprint up to attack, then sprint back to defend — again and again for the whole game.'},
+        {a:'ca-red',i:'🛡️',h:'Drop Into the Back Five',p:'When your team loses the ball, drop back alongside the three centre-backs and form a solid defensive line of five across the back.'},
+        {a:'ca-green',i:'🔗',h:'Cover Each Other',p:'When you push forward, the right centre-back covers the space you\'ve left. When you\'re back, she can step higher. Talk to her constantly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Attacking the Right Flank',items:['Push forward immediately when possession is won — your width is the team\'s width','Receive from RCM or RCB and drive at the left back without hesitation','Get to the byline and deliver — cut-back, near post cross, or low driven ball','Cut inside if the left back overcommits to the outside — shoot or through ball','Combine with the RCM — she holds inside while you take the overlap']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Back Five Defence',items:['Drop back alongside the RCB as soon as possession is lost — no hesitation','Mark the opposing winger or left back tightly — no space, no time','Track every run in behind — if she goes deep, you go with her','Stay connected to RCB — who has the winger, who covers inside','Be patient in 1v1s — covering RCB is your safety net behind']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Sprint Both Ways',items:['We lose possession: sprint back — this is the most important run you make','We win possession: burst down the right channel — the space is there','Ball played long right: make the run to support the striker before it lands']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Not recovering — being caught high when possession is lost','Losing the winger when dropping back into the back five','Getting to the byline too slowly — crossing from deep is ineffective','Losing concentration in the back five when ball is on the left']},
+    ],
+    qualities:['Stamina & Recovery Speed','1v1 Attacking','Crossing & Delivery','Defensive Tracking','RCB Communication','Decision Speed'],
+    cues:{in:['Push forward now','Get to the byline','Overlap the RCM'],out:['Back five — drop now','Tight to the winger','Track every run'],warn:['Recovery run is non-negotiable','Don\'t lose the winger']},
+    note:'Mirror of the LWB role. The recovery run habit is the single most important thing to build first — everything else follows. Use short-sided games where the wing-back must physically sprint back to a cone before the next phase.',
+    memo:{in:['Push forward the moment we have the ball','Get to the byline — deliver from there','Overlap the RCM for 2v1'],out:['Drop into back five — no delay','Tight to the winger immediately','Track every run — she goes, I go'],trans:['Lost it — fastest recovery run on pitch','Won it — burst down the right now']}
+  },
+  lcb: {
+    full:'Left Centre-Back', sub:'Back three — wide defender, build-up starter, aerial anchor',
+    overview:{
+      note:'"You play wider than a normal centre-back. When the left wing-back goes forward, that space on the left is your responsibility — don\'t follow other players, hold your position and cover it."',
+      cards:[
+        {a:'ca-gold',i:'🧱',h:'Guard the Left Channel',p:'In a back three you cover more ground than a normal centre-back. When the left wing-back attacks, the left side is yours to protect.'},
+        {a:'ca-blue',i:'🚀',h:'Carry It Forward',p:'You can carry the ball into midfield when space opens ahead. Be brave on the ball — in this shape, centre-backs are expected to play out.'},
+        {a:'ca-red',i:'📐',h:'Hold the Line Together',p:'You, the middle CB and the right CB hold a line across the back. Stay level with each other, talk constantly, and move as one.'},
+        {a:'ca-orange',i:'🤝',h:'Cover the Wing-Back',p:'When the left wing-back pushes forward, cover the space she leaves. When she comes back, you can step forward. Keep talking to her.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Driving Left Side',items:['Receive from the GK and look forward — can you carry into midfield?','When the LWB has pushed forward, you hold the left — don\'t follow her up','Switch ball to RCB to change the point of attack','Step into midfield with the ball when the striker drops off','Be the calm option — when the team is under pressure, receive and reset']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Holding the Left Channel',items:['When LWB is forward: cover the wide left channel — this is your primary responsibility','Don\'t be dragged into central duels — the CCB handles the middle','Hold the defensive line with CCB and RCB — communicate every step','Win headers in the left channel — don\'t let crosses come in unchallenged','Cover the CCB if she steps out to press']},
+      {cls:'trans',tag:'TRANSITIONS',h:'React to the Wing-Back',items:['LWB loses the ball high: drop immediately to cover the wide left channel','Team wins the ball: look to carry or play into the LWB making a forward run','Long ball in behind left side: race the attacker — don\'t wait']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Pushing too high when the LWB is already forward — channel exposed','Being drawn into central areas when she should be covering wide','Not communicating with CCB — in a back three, silence is dangerous','Holding the ball too long — the back three must play quickly']},
+    ],
+    qualities:['Wide 1v1 Defending','Covering LWB','Distribution','Back Three Communication','Carrying Ball Forward','Aerial Ability'],
+    cues:{in:['Carry into midfield when clear','Hold left when LWB goes','Switch to RCB'],out:['Cover the wide channel','Don\'t be dragged central','Hold the line'],warn:['Don\'t go high when LWB is forward','Talk to CCB constantly']},
+    note:'The LCB in a back three must be comfortable in wide defensive positions and confident carrying the ball forward. If she\'s too narrow or too static, the left channel becomes a massive weakness whenever the LWB attacks.',
+    memo:{in:['Carry into midfield when DM covers','Hold left when LWB pushes forward','Switch to RCB to change attack'],out:['Cover wide left when LWB is gone','Hold line with CCB and RCB','Win headers wide — don\'t wait'],trans:['LWB loses it — drop to cover immediately','Ball won — play into LWB forward run']}
+  },
+  ccb: {
+    full:'Centre Centre-Back', sub:'Back three — the spine, the sweeper, the organiser',
+    overview:{
+      note:'"You are the most important defender in this shape. Your job is not to chase the ball — it\'s to stay central and cover the two defenders either side of you. Talking is as important as tackling."',
+      cards:[
+        {a:'ca-gold',i:'🧱',h:'The Middle of Everything',p:'You\'re the central defender in the back three — the most important position in defence. You organise the line, win headers, and stop attacks through the middle.'},
+        {a:'ca-blue',i:'🔭',h:'Read It Early',p:'Watch what\'s happening all around the pitch and warn your teammates before the danger arrives. The best defenders see problems coming before they happen.'},
+        {a:'ca-red',i:'🛡️',h:'Cover Your CBs',p:'When either side CB steps out to challenge, you drop behind them as cover. You are the last line — if they make a mistake, you fix it.'},
+        {a:'ca-green',i:'🎯',h:'Switch the Play',p:'When your team has the ball, receive it centrally and pass it to whichever CB has more space. Moving the ball quickly side to side creates gaps.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Pivoting and Switching',items:['Receive centrally and look to switch — LCB to RCB or into the DM dropping','When LCB or RCB carries forward, hold central depth — don\'t follow','Play long over the top to strikers when midfield is congested','Be the calm under pressure — receive, assess, play. Never panic.','Drive into midfield only if both wide CBs are back and DM is covering — rare']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Holding the Centre',items:['Never step out of the central channel — let LCB or RCB step, you cover','Hold the defensive line with both CBs — you set the line, they follow you','Win every central header — don\'t leave the box unguarded','Track the second striker if she drops into the central channel','Communicate relentlessly — push up, drop, step, hold, switch']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Instant Shape',items:['Ball lost anywhere forward: call the line immediately — hold or drop?','Ball won: play quickly to DM or a wide CB — don\'t hold it in the centre','Wing-back counter-pressed and lost it: organise immediately']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Stepping out to press — that\'s the wide CBs\' job, not hers','Going quiet — she is the command centre, silence means the shape collapses','Following a striker too deep into midfield — leaves the central channel empty','Both CCB and a wide CB stepping at the same time']},
+    ],
+    qualities:['Positional Discipline','Reading the Game','Communication','Aerial Dominance','Covering Wide CBs','Composure'],
+    cues:{in:['Switch left to right','Hold depth when CBs carry','Be the calm'],out:['Hold the centre — never step','Set the line','Win every central header'],warn:['Don\'t step out','Never go quiet']},
+    note:'The CCB role is the most positionally demanding on the pitch. She must resist the urge to step to the ball — that\'s always someone else\'s job. Her discipline and communication hold the entire defensive shape together.',
+    memo:{in:['Switch between LCB and RCB','Hold central depth when others carry','Play long when midfield is congested'],out:['Never step out — hold the centre','Set the line — others follow me','Cover whoever steps out beside me'],trans:['Ball lost — call the line immediately','Ball won — play quickly to DM or wide CB']}
+  },
+  rcb: {
+    full:'Right Centre-Back', sub:'Back three — wide defender, right-side build-up, line holder',
+    overview:{
+      note:'"When the right wing-back goes forward, that right channel is your responsibility. Stay in a position to cover it — and when she comes back, you can push higher."',
+      cards:[
+        {a:'ca-gold',i:'🧱',h:'Guard the Right Channel',p:'In a back three you cover more ground than a normal centre-back. When the right wing-back attacks, the right side of the pitch is yours to protect.'},
+        {a:'ca-blue',i:'🚀',h:'Carry It Forward',p:'You can carry the ball into midfield when space opens. Be confident on the ball — centre-backs in this shape are expected to play out calmly.'},
+        {a:'ca-red',i:'📐',h:'Hold the Line Together',p:'Stay level with the middle CB and the left CB. Follow the middle CB\'s calls on when to push up and when to drop. You move as one.'},
+        {a:'ca-orange',i:'🤝',h:'Cover the Wing-Back',p:'When the right wing-back pushes forward, cover the space she leaves. When she\'s back, you can step forward. Talk to her constantly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Right Side Build-Up',items:['Receive from GK and carry forward when the right channel opens','When RWB is forward, hold the right side — don\'t push up as well','Switch to LCB to move the point of attack','Play into RCM dropping into the half-space — direct and early','When pressed, play back to GK calmly rather than forcing it']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Covering the Right Channel',items:['When RWB pushes forward: cover the wide right channel immediately','Don\'t be dragged centrally — that\'s the CCB\'s space','Hold the line with CCB and LCB — follow the CCB\'s calls','Win headers in the right channel and penalty area','Cover the CCB if she\'s drawn out — be the last line']},
+      {cls:'trans',tag:'TRANSITIONS',h:'React to the Wing-Back',items:['RWB loses it high: drop wide right immediately','Ball won: play into RWB\'s forward run or into RCM','Long ball in behind right side: race to it — don\'t wait and watch']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Pushing too high when RWB is already forward — channel exposed','Being drawn too central when her job is the right channel','Not communicating with CCB — the back three works as a vocal unit','Holding the ball when under pressure — play it early']},
+    ],
+    qualities:['Wide 1v1 Defending','Covering RWB','Distribution','Back Three Communication','Carrying Ball','Aerial Ability'],
+    cues:{in:['Carry right when clear','Switch to LCB','Hold right when RWB goes'],out:['Cover wide right channel','Don\'t go central','Hold line with CCB'],warn:['Don\'t push high when RWB is forward','Talk to CCB']},
+    note:'Mirror of the LCB role — same principles, right side. The RCB and LCB must understand each other\'s roles because they swap responsibilities based on which wing-back is forward.',
+    memo:{in:['Carry forward when right channel opens','Hold right when RWB pushes forward','Switch to LCB to shift play'],out:['Cover wide right when RWB is gone','Hold line — follow CCB\'s calls','Win the header wide'],trans:['RWB loses it — drop wide right immediately','Ball won — play into RWB run or RCM']}
+  },
+  ram: {
+    full:'Right Attacking Midfielder', sub:'Creative threat — right half-space, combination play, goal threat',
+    overview:{
+      note:'"Get the ball, turn forward, and make things happen. You\'re in this position to create chances and score goals. Be brave — take risks with your passing and your runs."',
+      cards:[
+        {a:'ca-gold',i:'🎨',h:'Create Chances',p:'You play in an advanced position on the right. Get on the ball, face forward, and look to play the striker through, shoot, or deliver from wide.'},
+        {a:'ca-blue',i:'🔗',h:'Support the Striker',p:'Drop short to receive and then play the striker in behind, or spin in behind yourself after laying the ball off. You\'re her closest help.'},
+        {a:'ca-red',i:'🛡️',h:'Get Back and Help',p:'When we don\'t have the ball, you track back into a right midfield position. You can\'t just stay up front — the right back needs your help.'},
+        {a:'ca-green',i:'🤝',h:'Link With the Right Back',p:'Combine with the right back to create two-against-one situations. You go inside, she goes outside — or swap it around.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating on the Right',items:['Receive between the lines and turn — face forward before playing','Drive into the right half-space to shoot or play the striker through','Cut inside from the right to shoot on the stronger foot','Combine with the right back — you inside, her outside for 2v1','Arrive in the box late when the striker holds up — be the second runner']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Tracking Back and Pressing',items:['When possession is lost, drop into a right midfield position','Press the left central midfielder when she receives in front of you','Help the right back when the left winger has got in behind','Stay connected to the other AMs — press as an attacking unit','When the opposition plays long, hold your right midfield position']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Quick in Both Directions',items:['Ball won in midfield: sprint forward into the right half-space immediately','Ball lost going forward: press the nearest defender — opponent isn\'t set yet','Long ball forward: anticipate the striker\'s knockdown and arrive quickly']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Staying too wide and becoming a winger rather than a half-space player','Not tracking back — right back gets exposed on every attack','Holding the ball too long when through balls are on — play the striker in','Both you and the CAM in the same zone — spread and separate']},
+    ],
+    qualities:['Half-Space Movement','Through Balls & Creativity','Shooting','Defensive Tracking','Combination Play','Decision Speed'],
+    cues:{in:['Face forward','Drive the half-space','Play her through'],out:['Drop to right mid','Press the CM','Help the RB'],warn:['Half-space not wide','Track back every time']},
+    note:'The RAM in a 4-2-3-1 needs to understand she\'s a half-space player, not a wide player. The right back provides the width — the RAM\'s job is to play in between the defence and midfield lines where she can turn and create.',
+    memo:{in:['Receive and face forward','Drive into right half-space','Arrive late in box as second runner'],out:['Drop into right mid position','Press left CM when she receives','Help RB when winger gets through'],trans:['Ball won — sprint into half-space','Ball lost — press now before they\'re set']}
+  },
+  lam: {
+    full:'Left Attacking Midfielder', sub:'Creative threat — left half-space, combination play, goal threat',
+    overview:{
+      note:'"Get on the ball, turn forward, and create. You\'re in this position because you\'re technically confident — use that. Play the striker through, drive at defenders, or deliver from the left."',
+      cards:[
+        {a:'ca-gold',i:'🎨',h:'Create Chances',p:'You play in an advanced position on the left. Get on the ball, face forward, and look for the striker, a shot, or a delivery from the left side.'},
+        {a:'ca-blue',i:'🔗',h:'Support the Striker',p:'Drop short to receive and then play the striker in behind, or spin in behind yourself after laying the ball off. You\'re her closest support.'},
+        {a:'ca-red',i:'🛡️',h:'Get Back and Help',p:'When we don\'t have the ball, track back to a left midfield position. You can\'t stay up front — the left back needs your help defending.'},
+        {a:'ca-green',i:'🤝',h:'Link With the Left Back',p:'Combine with the left back to create two-against-one situations. You go inside, she goes outside — or you go outside and she stays.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating on the Left',items:['Receive between the lines and turn — face forward before playing','Drive into the left half-space to shoot or play the striker through','Cut inside from the left to shoot on the stronger foot','Combine with the left back — you inside, her outside for 2v1','Arrive in the box late when the striker holds up']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Tracking Back and Pressing',items:['When possession is lost, drop into a left midfield position','Press the right central midfielder when she receives in front of you','Help the left back when the right winger has got in behind','Stay connected to the other AMs — press as an attacking unit','When the opposition plays long, hold your left midfield position']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Quick in Both Directions',items:['Ball won in midfield: sprint forward into the left half-space immediately','Ball lost going forward: press the nearest defender immediately','Long ball forward: anticipate the striker\'s knockdown and arrive quickly']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Staying too wide and becoming a winger rather than a half-space player','Not tracking back — left back gets exposed','Holding the ball too long when through balls are on','Both you and the CAM in the same zone']},
+    ],
+    qualities:['Half-Space Movement','Through Balls & Creativity','Shooting','Defensive Tracking','Combination Play','Decision Speed'],
+    cues:{in:['Face forward','Drive the half-space','Play her through'],out:['Drop to left mid','Press the CM','Help the LB'],warn:['Half-space not wide','Track back every time']},
+    note:'Mirror of the RAM. The LAM needs to understand she\'s a half-space player, not a wide player. The left back provides the width — the LAM plays between the lines where she can face forward and create.',
+    memo:{in:['Receive and face forward','Drive into left half-space','Arrive late in box as second runner'],out:['Drop into left mid position','Press right CM when she receives','Help LB when winger gets through'],trans:['Ball won — sprint into half-space','Ball lost — press now before they\'re set']}
+  },
+  cam: {
+    full:'Central Attacking Midfielder', sub:'The No.10 — between the lines, linking midfield and attack',
+    overview:{
+      note:'"Find the gaps between their midfield and their defence — that\'s your space. Drop to receive, turn, and either play the striker through or carry it yourself. You\'re the one who makes things happen."',
+      cards:[
+        {a:'ca-purple',i:'🎨',h:'The Number 10',p:'You play in the space between their midfield and their defence. Receive the ball facing forward and create — a pass through, a run, or a shot.'},
+        {a:'ca-blue',i:'🔄',h:'Keep Moving',p:'Don\'t stand still — drop deep, burst into the box, drift wide. If you keep moving, the defenders don\'t know where to mark you.'},
+        {a:'ca-gold',i:'🔗',h:'Everything Goes Through You',p:'Your teammates play to you. The striker makes her runs off your movement. You are the link between the midfield and the attack.'},
+        {a:'ca-red',i:'🛡️',h:'Get Back When Needed',p:'You\'re not just an attacker. When we lose the ball, drop back into the midfield and help defend. You\'re part of the defensive shape too.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Creating Between the Lines',items:['Drop deep to receive — drag the midfielder with you and create space for the striker','Receive on the half-turn wherever possible — see the pitch before the ball arrives','Turn and drive when you have time — don\'t always lay it off','Play the striker through with a first-time pass when the gap opens','Drift wide to stretch the defence — then cut inside','Arrive in the box as a late runner — you are a goal threat, not just a creator']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Dropping Into the Shape',items:['When we lose the ball, drop immediately into the midfield line','Press the ball if it\'s played to feet in front of you — you trigger the press','Don\'t stay high on your own — you leave the midfield as a two','Work with the DMs — communicate where you\'re dropping','Track any deep midfielder who tries to play through the lines where you just were']},
+      {cls:'trans',tag:'TRANSITIONS',h:'The Most Dangerous Moments',items:['Win the ball: your first touch forward can unlock the whole game — look up immediately','Lose the ball: press NOW — you\'re closest to the player who just won it','Opposition clears: be first to the ball in the space between the lines']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Staying high when we don\'t have the ball — leaves midfield as a two','Standing still between the lines — must keep moving to avoid being marked','Always going short — sometimes play the striker through rather than receiving yourself','Losing the ball in tight areas — one touch or two maximum']},
+    ],
+    qualities:['Technical Quality in Tight Spaces','Vision & Through Balls','Movement & Positioning','Turning Under Pressure','Box Arrival','Work Rate Off the Ball'],
+    cues:{in:['Drop and receive','Half-turn','Play through or carry'],out:['Drop into shape NOW','Trigger the press','Tell the DMs where you are'],warn:['Don\'t stay high','Keep moving','One or two touches max']},
+    note:'The CAM is the most demanding role to coach because it requires the highest football IQ on the pitch. At youth level, focus on two things first: (1) receiving on the half-turn, and (2) dropping into the midfield block when the team doesn\'t have the ball.',
+    memo:{in:['Drop deep to receive','Half-turn — see the pitch','Play striker through or drive'],out:['Drop into midfield line immediately','Trigger the press','Tell DMs where I\'m going'],trans:['Win it — look up and go immediately','Lose it — press NOW']}
+  },
+  rdm: {
+    full:'Right Defensive Midfielder', sub:'Double pivot — protect the defence, connect the play',
+    overview:{
+      note:'"One of you sits deeper, one pushes on slightly — agree it between you and stick to it. When she goes forward, you hold back. When you go forward, she holds. Simple."',
+      cards:[
+        {a:'ca-gold',i:'🛡️',h:'Protect the Right Side',p:'You sit in front of the right centre-back and right back, stopping the other team from playing through that area. Be a wall in front of them.'},
+        {a:'ca-blue',i:'🔗',h:'Connect Right to Attack',p:'Receive from the right back or right CB and pass it forward into the attacking players. You\'re the link between defence and attack on the right.'},
+        {a:'ca-red',i:'📐',h:'Balance With Your Partner',p:'You and the other defensive midfielder balance each other. When she goes forward, you stay. When you go forward, she stays. Never both forward.'},
+        {a:'ca-green',i:'🎯',h:'Win It and Move It',p:'Win the ball in front of your defenders and pass it forward straight away. Don\'t hold it — win it quickly and release it quickly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Connecting and Distributing',items:['Drop between the CBs or in front to always offer a passing option','Receive, assess, distribute — one or two touches maximum','Switch play from right to left through the pivot position','Play into the CAM or RAM who has moved forward — then hold your position','Cover the other DM\'s forward movement — one of you always holds']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Screening the Right Side',items:['Sit in front of the right CB and right back — block central right passing lanes','Press the ball when it\'s played to feet in front of you in your zone','Don\'t be drawn wide — the right back covers wide, you cover central right','Win the ball in the air and on the ground — second balls are yours','Stay connected to the other DM — if she steps, you cover centrally']},
+      {cls:'trans',tag:'TRANSITIONS',h:'First Line of Recovery',items:['Ball won: play forward quickly into the CAM or striker — don\'t hold it','Ball lost: drop immediately in front of the back four on the right side','CAM pushes forward and we lose it: drop to cover the central space she vacated']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Joining attacks — both DMs must not be forward at the same time','Being drawn too wide — the central lane opens up behind her','Holding the ball too long — her job is to win it and move it quickly','Both DMs pressing at the same time — massive gap opens centrally']},
+    ],
+    qualities:['Defensive Screening','Positional Discipline','Passing Accuracy','Ball Winning','DM Partnership','Reading the Game'],
+    cues:{in:['Drop to offer the option','One or two touches','Hold when she pushes'],out:['Screen the right side','Win the second ball','If she steps — I hold centrally'],warn:['Never both forward','Stay central']},
+    note:'The double pivot needs drilling as a pair. Give them scenarios where they must balance each other — one pushing, one holding. They should see themselves as one unit, not two individual midfielders.',
+    memo:{in:['Drop to offer the back four an option','One or two touches — distribute quickly','Hold position when other DM pushes'],out:['Screen right side in front of CB','Win every second ball','If she steps — I drop centrally'],trans:['Ball won — play forward immediately','Ball lost — drop on right side fast']}
+  },
+  ldm: {
+    full:'Left Defensive Midfielder', sub:'Double pivot — protect the defence, connect the play',
+    overview:{
+      note:'"The two of you only work if you talk to each other. One holds, one pushes on — agree who does what and stick to it. Never both going forward or both staying back."',
+      cards:[
+        {a:'ca-gold',i:'🛡️',h:'Protect the Left Side',p:'You sit in front of the left centre-back and left back, stopping the other team from playing through that area. Be a shield in front of them.'},
+        {a:'ca-blue',i:'🔗',h:'Connect Left to Attack',p:'Receive from the left back or left CB and pass it forward into the attacking players. You\'re the link between defence and attack on the left.'},
+        {a:'ca-red',i:'📐',h:'Balance With Your Partner',p:'You and the right defensive midfielder balance each other. When she goes forward, you hold back. When you go forward, she holds back.'},
+        {a:'ca-green',i:'🎯',h:'Win It and Move It',p:'Win the ball and move it forward straight away. Don\'t hold it or dribble — your job is to win it quickly and release it quickly.'},
+      ]    },
+    phases:[
+      {cls:'in',tag:'IN POSSESSION',h:'Left-Side Connection',items:['Drop to offer the left CB and left back a passing option','Receive, assess, distribute — one or two touches maximum','Play into the CAM or LAM who has moved forward — then hold your position','Switch play from left to right through the pivot','Cover the right DM\'s forward movement — one of you always holds']},
+      {cls:'out',tag:'OUT OF POSSESSION',h:'Screening the Left Side',items:['Sit in front of the left CB and left back — block central left passing lanes','Press the ball when it\'s played to feet in front of you in your zone','Don\'t be drawn wide — the left back covers wide, you cover central left','Win the ball in the air and on the ground','Stay connected to the right DM — if she steps, you cover centrally']},
+      {cls:'trans',tag:'TRANSITIONS',h:'Quick Recovery',items:['Ball won: play forward quickly into the CAM or striker','Ball lost: drop immediately in front of the back four on the left side','CAM pushes forward and we lose it: drop to cover the central space she vacated']},
+      {cls:'warn',tag:'COMMON MISTAKES',h:'Watch Out For',items:['Joining attacks — both DMs must not be forward at the same time','Being drawn too wide — the central left lane opens up behind her','Holding the ball too long','Both DMs pressing at the same time']},
+    ],
+    qualities:['Defensive Screening','Positional Discipline','Passing Accuracy','Ball Winning','DM Partnership','Reading the Game'],
+    cues:{in:['Drop to offer the option','One or two touches','Hold when she pushes'],out:['Screen the left side','Win the second ball','If she steps — I hold centrally'],warn:['Never both forward','Stay central']},
+    note:'Mirror of the RDM. The two DMs need to develop a shared language — who sits deeper, who can push on. This should be explicitly agreed in training, not discovered during a match.',
+    memo:{in:['Drop to offer left CB an option','One or two touches — distribute quickly','Hold position when right DM pushes'],out:['Screen left side in front of CB','Win every second ball','If she steps — I drop centrally'],trans:['Ball won — play forward immediately','Ball lost — drop on left side fast']}
+  }
+};
+
+/* ════════════════════════════════════════════
+   PITCH DRAWING
+════════════════════════════════════════════ */
+function drawPitchSVG(svgEl, positions, clickable, currentFormId) {
+  svgEl.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  const W = 200, H = 300;
+
+  // Stripes
+  for (let i = 0; i < 6; i++) {
+    const r = document.createElementNS(ns,'rect');
+    r.setAttribute('x','0'); r.setAttribute('y', i*50);
+    r.setAttribute('width','200'); r.setAttribute('height','50');
+    r.setAttribute('fill', i%2===0 ? '#1a4a2e' : '#22603b');
+    svgEl.appendChild(r);
+  }
+
+  // Lines
+  const paths = [
+    'M10,10 L190,10 L190,290 L10,290 Z',
+    'M10,150 L190,150',
+    'M100,150 m-28,0 a28,28 0 1,1 56,0 a28,28 0 1,1 -56,0',
+    'M47,10 L47,60 L153,60 L153,10',
+    'M72,10 L72,32 L128,32 L128,10',
+    'M47,290 L47,240 L153,240 L153,290',
+    'M72,290 L72,268 L128,268 L128,290',
+  ];
+  paths.forEach(d => {
+    const p = document.createElementNS(ns,'path');
+    p.setAttribute('d',d); p.setAttribute('stroke','rgba(255,255,255,0.22)');
+    p.setAttribute('stroke-width','1.2'); p.setAttribute('fill','none');
+    svgEl.appendChild(p);
+  });
+  [[100,46],[100,254],[100,150]].forEach(([cx,cy]) => {
+    const c = document.createElementNS(ns,'circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r','2');
+    c.setAttribute('fill','rgba(255,255,255,0.35)');
+    svgEl.appendChild(c);
+  });
+
+  // Players
+  positions.forEach(pos => {
+    const g = document.createElementNS(ns,'g');
+    g.classList.add('player-group');
+    if (clickable) g.style.cursor = 'pointer';
+
+    const shadow = document.createElementNS(ns,'circle');
+    shadow.setAttribute('cx', pos.x+1.5); shadow.setAttribute('cy', pos.y+2);
+    shadow.setAttribute('r', svgEl.id === 'fv-pitch' ? '13' : '11'); shadow.setAttribute('fill','rgba(0,0,0,0.3)');
+    g.appendChild(shadow);
+
+    const circle = document.createElementNS(ns,'circle');
+    circle.setAttribute('cx', pos.x); circle.setAttribute('cy', pos.y);
+    const dotR = svgEl.id === 'fv-pitch' ? '12' : '10';
+    circle.setAttribute('r', dotR);
+    const isGK = pos.label === 'GK';
+    circle.setAttribute('fill', isGK ? '#e8c84a' : '#1a3a8a');
+    circle.setAttribute('stroke', 'white'); circle.setAttribute('stroke-width','1.5');
+    circle.classList.add('player-dot');
+    g.appendChild(circle);
+
+    const text = document.createElementNS(ns,'text');
+    text.setAttribute('x', pos.x); text.setAttribute('y', svgEl.id === 'fv-pitch' ? pos.y+3.5 : pos.y+3.5);
+    text.setAttribute('text-anchor','middle'); text.setAttribute('font-size', svgEl.id === 'fv-pitch' ? '8.5' : '7');
+    text.setAttribute('font-family','DM Sans, sans-serif'); text.setAttribute('font-weight','600');
+    text.setAttribute('fill', isGK ? '#1a1a1a' : 'white');
+    text.setAttribute('pointer-events','none');
+    text.textContent = pos.label;
+    g.appendChild(text);
+
+    if (clickable) {
+      g.addEventListener('click', e => {
+        e.stopPropagation();
+        svgEl.querySelectorAll('.player-dot').forEach(d => {
+          d.setAttribute('stroke','white'); d.setAttribute('stroke-width','1.5');
+        });
+        circle.setAttribute('stroke','#e8c84a'); circle.setAttribute('stroke-width','2.5');
+        openRole(pos.role, currentFormId);
+      });
+    }
+    svgEl.appendChild(g);
+  });
+}
+
+/* ════════════════════════════════════════════
+   NAV STATE
+════════════════════════════════════════════ */
+let currentFormation = formations[0];
+
+function showOnly(id) {
+  ['hub','fview','rview'].forEach(i => {
+    const el = document.getElementById(i);
+    if (i === id) { el.style.display = ''; el.classList.add('active'); }
+    else { el.style.display = 'none'; el.classList.remove('active'); }
+  });
+  window.scrollTo(0,0);
+}
+
+function backToHub() { showOnly('hub'); }
+function backToFormation() {
+  showOnly('fview');
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active',i===0));
+  document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active',i===0));
+}
+
+/* ════════════════════════════════════════════
+   HUB RENDER
+════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════
+   HUB TOOLTIP
+════════════════════════════════════════════ */
+const hubTooltipData = {};
+// Pre-build a summary for each role from positionRoles
+Object.entries(positionRoles).forEach(([id, r]) => {
+  const inCues  = r.cues.in  || [];
+  const outCues = r.cues.out || [];
+  hubTooltipData[id] = {
+    full:    r.full,
+    desc:    r.sub,
+    mantras: [...inCues.slice(0,2), ...outCues.slice(0,2)].slice(0,4)
+  };
+});
+
+const hubTip = document.getElementById('hub-tooltip');
+let hubTipVisible = false;
+let hubTipCurrentRole = null;
+let hubTipCurrentFormId = null;
+
+function showHubTooltip(roleId, label, evt) {
+  const d = hubTooltipData[roleId];
+  if (!d) return;
+
+  // If tapping same role again — open the full guide
+  if (hubTipVisible && hubTipCurrentRole === roleId) {
+    hideHubTooltip();
+    openFormation(hubTipCurrentFormId);
+    setTimeout(() => openRole(roleId, hubTipCurrentFormId), 50);
+    return;
+  }
+
+  hubTipCurrentRole  = roleId;
+  hubTipCurrentFormId = currentFormation.id;
+
+  document.getElementById('ht-label').textContent = label;
+  document.getElementById('ht-full').textContent  = d.full;
+  document.getElementById('ht-desc').textContent  = d.desc;
+  document.getElementById('ht-mantras').innerHTML =
+    d.mantras.map(m => `<span class="ht-mantra">${m}</span>`).join('');
+
+  // Position near the click but keep on screen
+  const margin = 14, tw = 260, th = 200;
+  let x = evt.clientX + margin;
+  let y = evt.clientY - 20;
+  if (x + tw > window.innerWidth - 10) x = evt.clientX - tw - margin;
+  if (y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
+  hubTip.style.left = x + 'px';
+  hubTip.style.top  = y + 'px';
+  hubTip.classList.add('visible');
+  hubTipVisible = true;
+}
+
+function hideHubTooltip() {
+  hubTip.classList.remove('visible');
+  hubTipVisible = false;
+  hubTipCurrentRole = null;
+}
+
+document.addEventListener('click', e => {
+  if (hubTipVisible && !e.target.closest('.player-group')) hideHubTooltip();
+});
+
+function renderHub() {
+  const grid = document.getElementById('f-grid');
+  grid.innerHTML = '';
+  formations.forEach((f,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'f-btn' + (i===0?' active':'');
+    btn.innerHTML = `<div class="f-btn-name">${f.name}</div><div class="f-btn-sub">${f.subtitle}</div>`;
+    btn.onclick = () => selectFormation(f, btn);
+    grid.appendChild(btn);
+  });
+  selectFormation(formations[0], grid.children[0]);
+}
+
+function selectFormation(f, btn) {
+  currentFormation = f;
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Draw mini pitch
+  drawPitchSVG(document.getElementById('hub-pitch'), f.positions, 'hub', f.id);
+
+  // Info panel
+  const info = document.getElementById('f-info');
+  const tagMap = {offensive:'tag-off',defensive:'tag-def',balanced:'tag-bal',pressing:'tag-press'};
+  info.innerHTML = `
+    <div class="f-info-title">${f.name}</div>
+    <div class="f-info-sub">${f.subtitle}</div>
+    <div class="tags">${f.tags.map(t=>`<span class="tag ${tagMap[t]||'tag-bal'}">${t}</span>`).join('')}</div>
+    <p class="f-desc">${f.desc}</p>
+    <div class="pros-cons">
+      <div><h4 class="pro">Strengths</h4><ul class="pro-list">${f.pros.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+      <div><h4 class="con">Weaknesses</h4><ul class="con-list">${f.cons.map(c=>`<li>${c}</li>`).join('')}</ul></div>
+    </div>
+    <button onclick="openFormation('${f.id}')" style="
+      font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.12em;
+      padding:0.6rem 1.4rem;border:1px solid rgba(232,200,74,0.4);border-radius:3px;
+      background:rgba(232,200,74,0.1);color:var(--gold);cursor:pointer;transition:all 0.2s;width:100%;margin-top:0.2rem;
+    " onmouseover="this.style.background='rgba(232,200,74,0.2)'" onmouseout="this.style.background='rgba(232,200,74,0.1)'">
+      Explore ${f.name} Roles →
+    </button>
+  `;
+}
+
+function openFormation(formId) {
+  const f = formations.find(x => x.id === formId);
+  if (!f) return;
+  currentFormation = f;
+
+  document.getElementById('fv-badge').textContent = `${f.name} · ${f.subtitle}`;
+  document.getElementById('fv-title').innerHTML = f.name.split('–').map((p,i) => i===f.name.split('–').length-1 ? `<span>${p}</span>` : p).join('–');
+  document.getElementById('fv-sub').textContent = f.subtitle;
+
+  drawPitchSVG(document.getElementById('fv-pitch'), f.positions, true, f.id);
+  showOnly('fview');
+}
+
+/* ════════════════════════════════════════════
+   ROLE VIEW
+════════════════════════════════════════════ */
+function openRole(roleId, formId) {
+  const r = positionRoles[roleId];
+  if (!r) {
+    // Fallback for unmapped roles
+    openRoleFallback(roleId, formId);
+    return;
+  }
+  const f = formations.find(x => x.id === formId) || currentFormation;
+  const pos = f.positions.find(p => p.role === roleId);
+
+  document.getElementById('rv-back-name').textContent = `${f.name} Formation`;
+  document.getElementById('rv-back-btn').onclick = backToFormation;
+  document.getElementById('rv-badge').textContent = `${r.full} · ${f.name}`;
+  document.getElementById('rv-title').innerHTML = r.full.includes(' ') ?
+    r.full.split(' ').slice(0,-1).join(' ') + ' <span>' + r.full.split(' ').slice(-1)[0] + '</span>' :
+    `<span>${r.full}</span>`;
+  document.getElementById('rv-sub').textContent = r.sub;
+
+  document.getElementById('s-overview').innerHTML  = buildOverview(r);
+  document.getElementById('s-phases').innerHTML    = buildPhases(r);
+  document.getElementById('s-qualities').innerHTML = buildQualities(r);
+  document.getElementById('s-coach').innerHTML     = buildCoach(r);
+  document.getElementById('s-memo').innerHTML      = buildMemo(r);
+
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active',i===0));
+  document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active',i===0));
+  showOnly('rview');
+}
+
+function openRoleFallback(roleId, formId) {
+  // For any role not in positionRoles, show the position info from the original guide
+  const posInfo = {
+    GK: {full:'Goalkeeper',desc:'The last line of defence and the first attacker. Organises the defenders, deals confidently with crosses and through balls, and starts attacks with accurate distribution.'},
+    CB: {full:'Centre-Back',desc:'The central defenders whose main job is to stop the opposition striker(s) from scoring. Focus on reading the game, winning headers, staying goal-side of attackers, and communicating with teammates.'},
+  };
+  const f = formations.find(x => x.id === formId) || currentFormation;
+  document.getElementById('rv-back-name').textContent = `${f.name} Formation`;
+  document.getElementById('rv-back-btn').onclick = backToFormation;
+  const info = posInfo[roleId] || {full: roleId, desc: 'Role guide coming soon.'};
+  document.getElementById('rv-badge').textContent = `${info.full} · ${f.name}`;
+  document.getElementById('rv-title').innerHTML = `<span>${info.full}</span>`;
+  document.getElementById('rv-sub').textContent = '';
+  ['s-overview','s-phases','s-qualities','s-coach','s-memo'].forEach(id => {
+    document.getElementById(id).innerHTML = `<div class="sec-label">Role</div><div class="sec-title">${info.full}</div><p style="font-size:0.86rem;line-height:1.7;color:rgba(245,242,235,0.65);">${info.desc}</p>`;
+  });
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active',i===0));
+  document.querySelectorAll('.section').forEach((s,i) => s.classList.toggle('active',i===0));
+  showOnly('rview');
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ════════════════════════════════════════════
+   SECTION BUILDERS
+════════════════════════════════════════════ */
+function buildOverview(r) {
+  const cards = r.overview.cards.map(c => `
+    <div class="card"><div class="card-accent ${c.a}"></div>
+    <div class="card-icon">${c.i}</div><h3>${c.h}</h3><p>${c.p}</p></div>`).join('');
+  return `<div class="sec-label">The Role</div>
+    <div class="sec-title">What Does a ${r.full} Do?</div>
+    <div class="cards">${cards}</div>
+    <div class="coach-note"><div class="cn-label">Plain-English Summary for Players</div><p>${r.overview.note}</p></div>`;
+}
+
+function buildPhases(r) {
+  let html = `<div class="sec-label">Phases of Play</div><div class="sec-title">In, Out & Transition</div>`;
+  r.phases.filter(p=>p.cls!=='warn').forEach(p => {
+    html += `<div class="phase ${p.cls}"><div class="phase-tag">${p.tag}</div>
+      <h3>${p.h}</h3><ul>${p.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+  });
+  return html;
+}
+
+function buildQualities(r) {
+  const ranks = ['1st','2nd','3rd','4th','5th','6th'];
+  const grid = r.qualities.map((q,i) => `
+    <div class="quality"><div class="q-score">${ranks[i]||''}</div><div class="q-label">${q}</div></div>`).join('');
+  return `<div class="sec-label">Key Qualities</div>
+    <div class="sec-title">What Makes a Good Player Here?</div>
+    <div class="qualities">${grid}</div>
+    <div class="cards">
+      <div class="card"><div class="card-accent ca-gold"></div><h3>Technical</h3><p>First touch, passing, shooting and delivery — the skills that make the role function.</p></div>
+      <div class="card"><div class="card-accent ca-blue"></div><h3>Tactical</h3><p>Reading the game, understanding key relationships, communicating every decision.</p></div>
+      <div class="card"><div class="card-accent ca-red"></div><h3>Physical</h3><p>The specific stamina, speed and strength this position demands.</p></div>
+      <div class="card"><div class="card-accent ca-green"></div><h3>Mental</h3><p>Focus, resilience and leadership — especially under pressure when the shape is being stretched.</p></div>
+    </div>`;
+}
+
+function buildCoach(r) {
+  let html = `<div class="sec-label">For the Coaching Team</div><div class="sec-title">Coaching Cues & Language</div>`;
+  const inP   = r.phases.find(p=>p.cls==='in');
+  const outP  = r.phases.find(p=>p.cls==='out');
+  const warnP = r.phases.find(p=>p.cls==='warn');
+  if (inP && r.cues.in) {
+    html += `<div class="phase in"><div class="phase-tag">IN POSSESSION</div>
+      <h3>${inP.h}</h3><ul>${inP.items.slice(0,4).map(i=>`<li><em>"${i}"</em></li>`).join('')}</ul>
+      <div class="cues">${r.cues.in.map(c=>`<span class="cue">${c}</span>`).join('')}</div></div>`;
+  }
+  if (outP && r.cues.out) {
+    html += `<div class="phase out"><div class="phase-tag">OUT OF POSSESSION</div>
+      <h3>${outP.h}</h3><ul>${outP.items.slice(0,4).map(i=>`<li><em>"${i}"</em></li>`).join('')}</ul>
+      <div class="cues">${r.cues.out.map(c=>`<span class="cue">${c}</span>`).join('')}</div></div>`;
+  }
+  if (warnP) {
+    html += `<div class="phase warn"><div class="phase-tag">COMMON MISTAKES</div>
+      <h3>${warnP.h}</h3><ul>${warnP.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+      ${r.cues.warn?`<div class="cues">${r.cues.warn.map(c=>`<span class="cue">${c}</span>`).join('')}</div>`:''}</div>`;
+  }
+  html += `<div class="coach-note"><div class="cn-label">Newbie Coach Note</div><p>${r.note}</p></div>`;
+  return html;
+}
+
+function buildMemo(r) {
+  const m = r.memo;
+  return `<div class="sec-label">My Role · Memorise This</div>
+    <div class="sec-title">Your Memo Card</div>
+    <p style="font-size:0.84rem;color:rgba(245,242,235,0.48);margin-bottom:1.1rem;line-height:1.6;">
+      Three things to remember for each phase. If you can say these out loud before a match, you know your role.
+    </p>
+    <div class="memo-wrap">
+      <div class="memo-label">Game Day Reminders</div>
+      <div class="memo-title">${r.full} — Your Three Cues</div>
+      <div class="memo-phases">
+        <div class="memo-phase mp-in"><div class="mp-tag">When We Have The Ball</div>
+          <ul>${m.in.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+        <div class="memo-phase mp-out"><div class="mp-tag">When They Have The Ball</div>
+          <ul>${m.out.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+        <div class="memo-phase mp-trans"><div class="mp-tag">When The Ball Changes Hands</div>
+          <ul>${m.trans.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+      </div>
+    </div>
+    <p class="memo-howto">Read your memo card before training and before a match. Say it out loud — to yourself or a teammate. The more automatic these feel off the pitch, the more natural they become on it.</p>`;
+}
+
+/* ════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════ */
+// Hide fview and rview initially
+document.getElementById('fview').style.display = 'none';
+document.getElementById('rview').style.display = 'none';
+renderHub();
+</script>
+
+<div id="hub-tooltip">
+  <div class="ht-inner">
+    <div class="ht-label" id="ht-label"></div>
+    <div class="ht-full"  id="ht-full"></div>
+    <div class="ht-desc"  id="ht-desc"></div>
+    <div class="ht-mantras" id="ht-mantras"></div>
+    <div class="ht-hint">Tap anywhere to dismiss · tap again to open full guide</div>
+  </div>
+</div>
+
+</body>
+</html>
