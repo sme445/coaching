@@ -38,7 +38,7 @@
   /* Formation detail card */
   .f-detail{width:100%;max-width:920px;background:var(--card);border:1px solid var(--card-border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;}
   .f-detail-inner{display:grid;grid-template-columns:1fr;gap:0;}
-  @media(min-width:600px){.f-detail-inner{grid-template-columns:300px 1fr;}}
+  @media(min-width:600px){.f-detail-inner{grid-template-columns:340px 1fr;}}
 
   /* Mini pitch in hub */
   .hub-pitch-wrap{padding:1.2rem;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--card-border);}
@@ -215,7 +215,7 @@
   <div class="f-detail" id="f-detail">
     <div class="f-detail-inner">
       <div class="hub-pitch-wrap">
-        <svg id="hub-pitch" viewBox="0 0 200 300" width="240" height="360" xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg id="hub-pitch" viewBox="0 0 200 300" width="290" height="435" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
       <div class="f-info" id="f-info"></div>
     </div>
@@ -237,7 +237,7 @@
     <div class="fv-sub" id="fv-sub">Subtitle</div>
   </div>
   <div class="fv-pitch-wrap">
-    <svg id="fv-pitch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" style="width:min(340px,90vw);height:auto;display:block;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;"></svg>
+    <svg id="fv-pitch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" style="width:min(420px,94vw);height:auto;display:block;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;"></svg>
   </div>
   <p class="fv-hint">↑ Tap any player to open their role guide</p>
   <footer>Ross County FC · U16 Girls · Formations Guide</footer>
@@ -282,10 +282,10 @@ const formations = [
     pros:['Simple shape — easy for players to hold','Two strikers support each other well','Good width across the pitch','Defensively clear — everyone knows their zone'],
     cons:['Central midfield can be outnumbered vs a midfield three','Strikers can end up isolated if midfield doesn\'t push on','Wide mids must work hard in both directions','Can become too passive if the team just sits in shape'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
-      {label:'RM',  x:168, y:150, role:'rm'},{label:'CM', x:125, y:150, role:'rcm'},{label:'CM', x:75, y:150, role:'lcm'},{label:'LM', x:32, y:150, role:'lm'},
-      {label:'ST',  x:125, y:75,  role:'rs'},{label:'ST', x:75,  y:75,  role:'ls'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RB', x:165, y:215, role:'rb', num:2},{label:'CB', x:130, y:215, role:'cb', num:5},{label:'CB', x:70, y:215, role:'cb2', num:6},{label:'LB', x:35, y:215, role:'lb', num:3},
+      {label:'RM', x:168, y:150, role:'rm', num:7},{label:'CM', x:125, y:150, role:'rcm', num:8},{label:'CM', x:75, y:150, role:'lcm', num:4},{label:'LM', x:32, y:150, role:'lm', num:11},
+      {label:'ST', x:125, y:75, role:'rs', num:9},{label:'ST', x:75, y:75, role:'ls', num:10}
     ]
   },
   {
@@ -295,10 +295,10 @@ const formations = [
     pros:['High press can disrupt opposition build-up','Wingers give great width and 1v1 opportunities','Suits energetic, mobile players','Teaches pressing triggers and team shape together'],
     cons:['If press breaks down, gaps open for a quick ball over the top','Wide forwards must track back — requires commitment','Midfield three can get stretched if all attack-minded','Physically demanding for a full 60-70 minutes at U16'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
-      {label:'CM',  x:140, y:155, role:'rcm'},{label:'CDM', x:100, y:170, role:'cdm'},{label:'CM', x:60, y:155, role:'lcm'},
-      {label:'RW',  x:165, y:80,  role:'rw'},{label:'ST', x:100, y:60, role:'st'},{label:'LW', x:35, y:80, role:'lw'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RB', x:165, y:215, role:'rb', num:2},{label:'CB', x:130, y:215, role:'cb', num:5},{label:'CB', x:70, y:215, role:'cb2', num:6},{label:'LB', x:35, y:215, role:'lb', num:3},
+      {label:'CM', x:140, y:155, role:'rcm', num:8},{label:'CDM', x:100, y:170, role:'cdm', num:4},{label:'CM', x:60, y:155, role:'lcm', num:6},
+      {label:'RW', x:165, y:80, role:'rw', num:7},{label:'ST', x:100, y:60, role:'st', num:9},{label:'LW', x:35, y:80, role:'lw', num:11}
     ]
   },
   {
@@ -308,11 +308,11 @@ const formations = [
     pros:['Two DMs protect and cover well','Your best creative player thrives as the No.10','Attacking three have freedom to combine','Disciplined shape — good for defensive structure'],
     cons:['Lone striker can feel isolated if the AM line doesn\'t support','Wide AMs must track back or full-backs are exposed','Double pivot takes time for players to understand','Can feel narrow if full-backs don\'t push on'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
-      {label:'DM',  x:125, y:178, role:'rdm'},{label:'DM', x:75, y:178, role:'ldm'},
-      {label:'RAM', x:158, y:115, role:'ram'},{label:'CAM', x:100, y:105, role:'cam'},{label:'LAM', x:42, y:115, role:'lam'},
-      {label:'ST',  x:100, y:58,  role:'st'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RB', x:165, y:215, role:'rb', num:2},{label:'CB', x:130, y:215, role:'cb', num:5},{label:'CB', x:70, y:215, role:'cb2', num:6},{label:'LB', x:35, y:215, role:'lb', num:3},
+      {label:'DM', x:125, y:178, role:'rdm', num:4},{label:'DM', x:75, y:178, role:'ldm', num:8},
+      {label:'RAM', x:158, y:115, role:'ram', num:7},{label:'CAM', x:100, y:105, role:'cam', num:10},{label:'LAM', x:42, y:115, role:'lam', num:11},
+      {label:'ST', x:100, y:58, role:'st', num:9}
     ]
   },
   {
@@ -322,10 +322,10 @@ const formations = [
     pros:['Five in midfield can dominate most U16 opposition','Two strikers work well as a partnership','Three CBs give defensive security','Wing-backs develop all-round fitness and awareness'],
     cons:['Wing-backs need excellent stamina — not for all players','Wide areas exposed when wing-backs push forward','Requires three confident CBs who communicate well','More complex to organise than a flat back four'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'CB',  x:148, y:218, role:'rcb'},{label:'CB', x:100, y:218, role:'ccb'},{label:'CB', x:52, y:218, role:'lcb'},
-      {label:'RWB', x:178, y:155, role:'rwb'},{label:'CM', x:138, y:155, role:'rcm'},{label:'CM', x:100, y:162, role:'cm'},{label:'CM', x:62, y:155, role:'lcm'},{label:'LWB', x:22, y:155, role:'lwb'},
-      {label:'ST',  x:125, y:78,  role:'rs'},{label:'ST', x:75, y:78, role:'ls'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'CB', x:148, y:218, role:'rcb', num:2},{label:'CB', x:100, y:218, role:'ccb', num:5},{label:'CB', x:52, y:218, role:'lcb', num:6},
+      {label:'RWB', x:178, y:155, role:'rwb', num:7},{label:'CM', x:138, y:155, role:'rcm', num:8},{label:'CM', x:100, y:162, role:'cm', num:4},{label:'CM', x:62, y:155, role:'lcm', num:11},{label:'LWB', x:22, y:155, role:'lwb', num:3},
+      {label:'ST', x:125, y:78, role:'rs', num:9},{label:'ST', x:75, y:78, role:'ls', num:10}
     ]
   },
   {
@@ -335,10 +335,10 @@ const formations = [
     pros:['Lots of attacking options — width and central threat','Can overwhelm disorganised opposition','Exciting to play — good for player engagement','Wing-backs and wingers stretch the pitch in both phases'],
     cons:['Defensively risky if players lose shape','Wing-backs cover enormous distances — fitness critical','Needs clear pressing triggers or becomes chaotic','Complex to coach — takes time to embed at U16'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'CB',  x:148, y:218, role:'rcb'},{label:'CB', x:100, y:218, role:'ccb'},{label:'CB', x:52, y:218, role:'lcb'},
-      {label:'RWB', x:178, y:162, role:'rwb'},{label:'CM', x:130, y:162, role:'rcm'},{label:'CM', x:70, y:162, role:'lcm'},{label:'LWB', x:22, y:162, role:'lwb'},
-      {label:'RW',  x:152, y:82,  role:'rw'},{label:'ST', x:100, y:65, role:'st'},{label:'LW', x:48, y:82, role:'lw'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'CB', x:148, y:218, role:'rcb', num:2},{label:'CB', x:100, y:218, role:'ccb', num:5},{label:'CB', x:52, y:218, role:'lcb', num:6},
+      {label:'RWB', x:178, y:162, role:'rwb', num:7},{label:'CM', x:130, y:162, role:'rcm', num:8},{label:'CM', x:70, y:162, role:'lcm', num:4},{label:'LWB', x:22, y:162, role:'lwb', num:3},
+      {label:'RW', x:152, y:82, role:'rw', num:11},{label:'ST', x:100, y:65, role:'st', num:9},{label:'LW', x:48, y:82, role:'lw', num:10}
     ]
   },
   {
@@ -348,10 +348,10 @@ const formations = [
     pros:['Very compact and hard to break down','Five midfielders block central channels well','Wide midfielders can counter quickly when ball is won','Simple defensive shape — clear roles for all'],
     cons:['Striker is isolated — needs to work hard alone','Very little goal threat unless midfielders support','Wide mids have a huge amount of ground to cover','Can be demoralising for young players in a long game'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
-      {label:'RM',  x:172, y:160, role:'rm'},{label:'CM', x:138, y:155, role:'rcm'},{label:'CM', x:100, y:165, role:'cm'},{label:'CM', x:62, y:155, role:'lcm'},{label:'LM', x:28, y:160, role:'lm'},
-      {label:'ST',  x:100, y:72,  role:'st'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RB', x:165, y:215, role:'rb', num:2},{label:'CB', x:130, y:215, role:'cb', num:5},{label:'CB', x:70, y:215, role:'cb2', num:6},{label:'LB', x:35, y:215, role:'lb', num:3},
+      {label:'RM', x:172, y:160, role:'rm', num:7},{label:'CM', x:138, y:155, role:'rcm', num:8},{label:'CM', x:100, y:165, role:'cm', num:4},{label:'CM', x:62, y:155, role:'lcm', num:11},{label:'LM', x:28, y:160, role:'lm', num:10},
+      {label:'ST', x:100, y:72, role:'st', num:9}
     ]
   },
   {
@@ -361,11 +361,11 @@ const formations = [
     pros:['Very clear roles — great for mixed-age squads','CDM protects back four and covers for attacking full-backs','Four midfielders can press as a coordinated unit','Excellent for teaching pressing triggers and transitions'],
     cons:['Striker still relatively isolated — needs midfield support','Wide midfielders must track back defensively','The CDM role needs the right player','Can look like a 4-5-1 if the midfield four don\'t push on'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RB',  x:165, y:215, role:'rb'},{label:'CB', x:130, y:215, role:'cb'},{label:'CB', x:70, y:215, role:'cb2'},{label:'LB', x:35, y:215, role:'lb'},
-      {label:'CDM', x:100, y:185, role:'cdm'},
-      {label:'RM',  x:168, y:138, role:'rm'},{label:'CM', x:130, y:130, role:'rcm'},{label:'CM', x:70, y:130, role:'lcm'},{label:'LM', x:32, y:138, role:'lm'},
-      {label:'ST',  x:100, y:68,  role:'st'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RB', x:165, y:215, role:'rb', num:2},{label:'CB', x:130, y:215, role:'cb', num:5},{label:'CB', x:70, y:215, role:'cb2', num:6},{label:'LB', x:35, y:215, role:'lb', num:3},
+      {label:'CDM', x:100, y:185, role:'cdm', num:4},
+      {label:'RM', x:168, y:138, role:'rm', num:7},{label:'CM', x:130, y:130, role:'rcm', num:8},{label:'CM', x:70, y:130, role:'lcm', num:11},{label:'LM', x:32, y:138, role:'lm', num:10},
+      {label:'ST', x:100, y:68, role:'st', num:9}
     ]
   },
   {
@@ -375,10 +375,10 @@ const formations = [
     pros:['Five defenders extremely hard to break down','Two strikers give an outlet for direct balls','Three midfielders work hard in a compact area','Wing-backs tuck in to make a solid defensive block'],
     cons:['Very limited attacking play — players may find it frustrating','Midfield of three easily outnumbered','Doesn\'t develop players on the ball','Not recommended as a regular formation at development age'],
     positions:[
-      {label:'GK',  x:100, y:270, role:'gk'},
-      {label:'RWB', x:175, y:210, role:'rwb'},{label:'CB', x:145, y:218, role:'rcb'},{label:'CB', x:100, y:222, role:'ccb'},{label:'CB', x:55, y:218, role:'lcb'},{label:'LWB', x:25, y:210, role:'lwb'},
-      {label:'CM',  x:140, y:160, role:'rcm'},{label:'CM', x:100, y:170, role:'cm'},{label:'CM', x:60, y:160, role:'lcm'},
-      {label:'ST',  x:130, y:80,  role:'rs'},{label:'ST', x:70, y:80, role:'ls'}
+      {label:'GK', x:100, y:270, role:'gk', num:1},
+      {label:'RWB', x:175, y:210, role:'rwb', num:2},{label:'CB', x:145, y:218, role:'rcb', num:5},{label:'CB', x:100, y:222, role:'ccb', num:6},{label:'CB', x:55, y:218, role:'lcb', num:4},{label:'LWB', x:25, y:210, role:'lwb', num:3},
+      {label:'CM', x:140, y:160, role:'rcm', num:8},{label:'CM', x:100, y:170, role:'cm', num:10},{label:'CM', x:60, y:160, role:'lcm', num:11},
+      {label:'ST', x:130, y:80, role:'rs', num:9},{label:'ST', x:70, y:80, role:'ls', num:7}
     ]
   }
 ];
@@ -976,6 +976,7 @@ function drawPitchSVG(svgEl, positions, clickable, currentFormId) {
   });
 
   // Players
+  const isFV = svgEl.id === 'fv-pitch';
   positions.forEach(pos => {
     const g = document.createElementNS(ns,'g');
     g.classList.add('player-group');
@@ -983,12 +984,13 @@ function drawPitchSVG(svgEl, positions, clickable, currentFormId) {
 
     const shadow = document.createElementNS(ns,'circle');
     shadow.setAttribute('cx', pos.x+1.5); shadow.setAttribute('cy', pos.y+2);
-    shadow.setAttribute('r', svgEl.id === 'fv-pitch' ? '13' : '11'); shadow.setAttribute('fill','rgba(0,0,0,0.3)');
+    shadow.setAttribute('r', isFV ? '22' : '18');
+    shadow.setAttribute('fill','rgba(0,0,0,0.3)');
     g.appendChild(shadow);
 
     const circle = document.createElementNS(ns,'circle');
     circle.setAttribute('cx', pos.x); circle.setAttribute('cy', pos.y);
-    const dotR = svgEl.id === 'fv-pitch' ? '12' : '10';
+    const dotR = isFV ? '20' : '16';
     circle.setAttribute('r', dotR);
     const isGK = pos.label === 'GK';
     circle.setAttribute('fill', isGK ? '#e8c84a' : '#1a3a8a');
@@ -996,14 +998,49 @@ function drawPitchSVG(svgEl, positions, clickable, currentFormId) {
     circle.classList.add('player-dot');
     g.appendChild(circle);
 
-    const text = document.createElementNS(ns,'text');
-    text.setAttribute('x', pos.x); text.setAttribute('y', svgEl.id === 'fv-pitch' ? pos.y+3.5 : pos.y+3.5);
-    text.setAttribute('text-anchor','middle'); text.setAttribute('font-size', svgEl.id === 'fv-pitch' ? '8.5' : '7');
-    text.setAttribute('font-family','DM Sans, sans-serif'); text.setAttribute('font-weight','600');
-    text.setAttribute('fill', isGK ? '#1a1a1a' : 'white');
-    text.setAttribute('pointer-events','none');
-    text.textContent = pos.label;
-    g.appendChild(text);
+    const hasNum = pos.num !== undefined;
+
+    if (hasNum) {
+      // Shirt number — displayed prominently inside the dot
+      const numText = document.createElementNS(ns,'text');
+      numText.setAttribute('x', pos.x);
+      numText.setAttribute('y', isFV ? pos.y - 2 : pos.y - 2);
+      numText.setAttribute('text-anchor','middle');
+      numText.setAttribute('font-size', isFV ? '14' : '11');
+      numText.setAttribute('font-family','Bebas Neue, sans-serif');
+      numText.setAttribute('font-weight','700');
+      numText.setAttribute('fill', isGK ? '#1a1a1a' : 'white');
+      numText.setAttribute('pointer-events','none');
+      numText.setAttribute('letter-spacing','0');
+      numText.textContent = pos.num;
+      g.appendChild(numText);
+
+      // Position label — small, below number inside dot
+      const posText = document.createElementNS(ns,'text');
+      posText.setAttribute('x', pos.x);
+      posText.setAttribute('y', isFV ? pos.y + 10 : pos.y + 8);
+      posText.setAttribute('text-anchor','middle');
+      posText.setAttribute('font-size', isFV ? '7' : '6');
+      posText.setAttribute('font-family','DM Sans, sans-serif');
+      posText.setAttribute('font-weight','600');
+      posText.setAttribute('fill', isGK ? 'rgba(26,26,26,0.75)' : 'rgba(255,255,255,0.75)');
+      posText.setAttribute('pointer-events','none');
+      posText.textContent = pos.label;
+      g.appendChild(posText);
+    } else {
+      // Fallback: no number, show label only as before
+      const text = document.createElementNS(ns,'text');
+      text.setAttribute('x', pos.x);
+      text.setAttribute('y', isFV ? pos.y+3.5 : pos.y+3.5);
+      text.setAttribute('text-anchor','middle');
+      text.setAttribute('font-size', isFV ? '8.5' : '7');
+      text.setAttribute('font-family','DM Sans, sans-serif');
+      text.setAttribute('font-weight','600');
+      text.setAttribute('fill', isGK ? '#1a1a1a' : 'white');
+      text.setAttribute('pointer-events','none');
+      text.textContent = pos.label;
+      g.appendChild(text);
+    }
 
     if (clickable) {
       g.addEventListener('click', e => {
