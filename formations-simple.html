@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Football Formations Guide — Ross County U16 Girls</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzNiI+CiAgPCEtLSBTaGllbGQgYmFzZSAtIG5hdnkgLS0+CiAgPHBhdGggZD0iTTE2IDAgTDMyIDQgTDMyIDIyIFEzMiAzNCAxNiAzNiBRMCAzNCAwIDIyIEwwIDQgWiIgZmlsbD0iIzFlMmQ2YiIvPgogIDwhLS0gUmVkIGJhciBhdCB0b3AgLS0+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjciIHJ4PSIwIiBmaWxsPSIjY2MxZjJhIi8+CiAgPCEtLSBXaGl0ZSBvdXRsaW5lL2JvcmRlciAtLT4KICA8cGF0aCBkPSJNMTYgMSBMMzEgNC41IEwzMSAyMiBRMzEgMzMgMTYgMzUgUTEgMzMgMSAyMiBMMSA0LjUgWiIgCiAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8IS0tIFJDIGluIHdoaXRlLCBib2xkIC0tPgogIDx0ZXh0IHg9IjE2IiB5PSIyNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgCiAgICAgICAgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgCiAgICAgICAgZm9udC1zaXplPSIxMyIgZmlsbD0id2hpdGUiIGxldHRlci1zcGFjaW5nPSIxIj5SQzwvdGV4dD4KPC9zdmc+">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -198,6 +199,91 @@
   .memo-phase ul li::before{content:'→ ';opacity:0.4;font-size:0.68rem;}
   .memo-howto{font-size:0.82rem;line-height:1.68;color:rgba(245,242,235,0.5);font-style:italic;margin-top:1rem;}
 
+
+  /* ══ FORMATION VIEW — PITCH + ROLE LIST LAYOUT ══ */
+  .fv-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 1rem 2rem;
+    gap: 1.5rem;
+    flex: 1;
+  }
+  @media(min-width: 700px) {
+    .fv-body {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 1.5rem 2rem 2rem;
+      gap: 2rem;
+    }
+  }
+  .fv-pitch-col {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .fv-role-list {
+    flex: 1;
+    max-width: 380px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .fv-role-list-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+  }
+  .fv-role-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 0.65rem 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s;
+    text-decoration: none;
+  }
+  .fv-role-item:hover {
+    border-color: rgba(232,200,74,0.45);
+    background: rgba(232,200,74,0.07);
+  }
+  .fv-role-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--gold);
+    min-width: 1.6rem;
+    text-align: center;
+  }
+  .fv-role-info { flex: 1; }
+  .fv-role-pos {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .fv-role-summary {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: rgba(245,242,235,0.60);
+  }
+  .fv-role-arrow {
+    font-size: 0.85rem;
+    color: rgba(232,200,74,0.5);
+    flex-shrink: 0;
+  }
   footer{text-align:center;padding:1.2rem;font-size:0.72rem;color:rgba(245,242,235,0.55);letter-spacing:0.05em;border-top:1px solid var(--card-border);margin-top:auto;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 </style>
@@ -236,10 +322,15 @@
     <div class="fv-title" id="fv-title"><span>Formation</span></div>
     <div class="fv-sub" id="fv-sub">Subtitle</div>
   </div>
-  <div class="fv-pitch-wrap">
-    <svg id="fv-pitch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" style="width:min(420px,94vw);height:auto;display:block;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;"></svg>
+  <div class="fv-body">
+    <div class="fv-pitch-col">
+      <svg id="fv-pitch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" style="width:min(380px,92vw);height:auto;display:block;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.6));cursor:default;"></svg>
+      <p class="fv-hint" style="padding:0;">↑ Tap any player to open their role guide</p>
+    </div>
+    <div class="fv-role-list" id="fv-role-list">
+      <div class="fv-role-list-label">Positions in this formation</div>
+    </div>
   </div>
-  <p class="fv-hint">↑ Tap any player to open their role guide</p>
   <footer>Ross County FC · U16 Girls · Formations Guide</footer>
 </div>
 
@@ -1144,6 +1235,61 @@ document.addEventListener('click', e => {
   if (hubTipVisible && !e.target.closest('.player-group')) hideHubTooltip();
 });
 
+
+const roleSummaries = {
+  gk:  'Organises the defence, commands the box, starts attacks with distribution.',
+  rb:  'Defends the right flank, supports attacks, works as a pair with the RM.',
+  lb:  'Defends the left flank, joins attacks down the left, pairs with the LM.',
+  cb:  'Stops goals, holds the defensive line, leads from the back.',
+  cb2: 'Wins duels in the centre, covers the other CB, plays out from the back.',
+  rm:  'Attacks down the right, delivers crosses, tracks back to defend.',
+  lm:  'Attacks down the left, delivers crosses, tracks back to defend.',
+  rcm: 'Connects right side defence to attack, screens, arrives late in the box.',
+  lcm: 'Connects left side defence to attack, screens, arrives late in the box.',
+  cm:  'The engine — links defence to attack, wins the ball, covers the whole pitch.',
+  cdm: 'Sits in front of the back four, protects defenders, starts every attack.',
+  rw:  'Stays high on the right, runs at defenders, gets to the byline and delivers.',
+  lw:  'Stays high on the left, runs at defenders, gets to the byline and delivers.',
+  st:  'The main goal threat — always moving, pressing from the front, finishing.',
+  rs:  'Right striker — scores goals, works as a pair with the left striker.',
+  ls:  'Left striker — scores goals, works as a pair with the right striker.',
+  rwb: 'Owns the whole right flank — attacks like a winger, defends like a full-back.',
+  lwb: 'Owns the whole left flank — attacks like a winger, defends like a full-back.',
+  rcb: 'Right of back three — covers the right channel when the wing-back attacks.',
+  ccb: 'Centre of back three — organises the line, covers both side CBs.',
+  lcb: 'Left of back three — covers the left channel when the wing-back attacks.',
+  ram: 'Advanced right midfielder — creates chances, supports the striker, tracks back.',
+  cam: 'The No.10 — finds space between the lines, links midfield to attack.',
+  lam: 'Advanced left midfielder — creates chances, supports the striker, tracks back.',
+  rdm: 'Right of double pivot — protects the right side, connects to the attack.',
+  ldm: 'Left of double pivot — protects the left side, connects to the attack.',
+};
+
+function renderRoleList(f) {
+  const list = document.getElementById('fv-role-list');
+  // Keep the label div, clear the rest
+  list.innerHTML = '<div class="fv-role-list-label">Positions in this formation</div>';
+
+  f.positions.forEach(pos => {
+    const r = positionRoles[pos.role];
+    const summary = roleSummaries[pos.role] || (r ? r.sub : 'Tap to learn more.');
+    const fullName = r ? r.full : pos.label;
+    const num = pos.num !== undefined ? pos.num : '';
+
+    const item = document.createElement('div');
+    item.className = 'fv-role-item';
+    item.innerHTML = `
+      <div class="fv-role-num">${num}</div>
+      <div class="fv-role-info">
+        <div class="fv-role-pos">${fullName}</div>
+        <div class="fv-role-summary">${summary}</div>
+      </div>
+      <div class="fv-role-arrow">→</div>
+    `;
+    item.addEventListener('click', () => openRole(pos.role, f.id));
+    list.appendChild(item);
+  });
+}
 function renderHub() {
   const grid = document.getElementById('f-grid');
   grid.innerHTML = '';
@@ -1197,6 +1343,7 @@ function openFormation(formId) {
   document.getElementById('fv-sub').textContent = f.subtitle;
 
   drawPitchSVG(document.getElementById('fv-pitch'), f.positions, true, f.id);
+  renderRoleList(f);
   showOnly('fview');
 }
 
